@@ -84,6 +84,7 @@
 				return;
 			}
 			
+			
 			getAttendance();
 			getProjectSection();
 			getMemberListSection();
