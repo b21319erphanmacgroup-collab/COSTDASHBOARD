@@ -1,0 +1,46 @@
+//scss 분산 파일 모음 - 분산된 기본 설정들 모음(페이지에서도 끌어감)
+
+//Pretendvardvariable 폰트
+@forward "../pretendardvariable";
+
+//Pretendvardvariable 폰트
+@forward "../saira";
+
+//베리어블 변수파일
+@forward "component/variables";
+
+//mixin
+@forward "mixins/utils";
+
+//reset 불러오기
+@forward "common/reset";
+
+//root 불러오기
+@forward "common/root";
+
+//utilities 불러오기
+@forward "common/utilities";
+
+//button 불러오기
+@forward "common/button";
+
+//header 불러오기
+@forward "common/header";
+
+//sidebar 불러오기
+@forward "common/sidebar";
+
+//footer 불러오기
+@forward "common/footer";
+
+//사이즈
+@forward "component/size";
+
+//모달
+@forward "common/modal";
+
+//로그인
+@forward "common/login";
+
+//메인
+@forward "common/main";

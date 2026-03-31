@@ -1,0 +1,30 @@
+# 전체 제외
+*
+
+# gitignore 포함
+!.gitignore
+
+# 루트 허용
+!intranet/
+!Smarty/
+
+# intranet 구조 열기
+!intranet/sys/
+!intranet/sys/controller/**
+!intranet/sys/model/**
+
+!intranet/dashboard/
+!intranet/dashboard/css/
+!intranet/dashboard/css/**
+!intranet/dashboard/js/
+!intranet/dashboard/js/**
+
+# 제외 (가독성용)
+intranet/dashboard/font/**
+intranet/dashboard/images/**
+
+# Smarty 허용
+!Smarty/templates/
+!Smarty/templates/intranet/
+!Smarty/templates/intranet/common_contents/
+!Smarty/templates/intranet/common_contents/dashboard/**

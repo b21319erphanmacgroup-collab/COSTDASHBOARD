@@ -1,0 +1,555 @@
+//이곳은 variables입니다
+@use "sass:math";
+@use "sass:map";
+
+//prefix
+$prefix: hm- !default;
+
+// 1920px 기준 px → vw 변환 자동 생성
+// $vw-1 ~ $vw-100 까지 변수 생성
+// px → vw
+@function px-to-vw($px, $base: 1920) {
+	$raw: (math.div($px, $base) * 100); // 원래 값
+	$rounded: math.div(round($raw * 100), 100); // 소숫점 2자리까지만 반올림
+	@return $rounded * 1vw;
+}
+
+// 1~100까지 맵에 저장
+$vw: ();
+@for $i from 1 through 100 {
+	$vw: map.set($vw, $i, px-to-vw($i));
+}
+
+// 헬퍼 함수: 원하는 숫자 꺼내기
+@function vw($n) {
+	@return map.get($vw, $n);
+}
+
+// 사용 예
+// .title { font-size: clamp(12px, vw(14), 16px); }  // 14px -> 0.73vw
+// .box   { margin-top: vw(32); }                     // 32px -> 1.67vw
+
+//font style
+$font-family-base: "Saira", "Pretendard Variable", "Pretendard", sans-serif !default;
+
+$font-size-root: 62.5% !default; //10px 1rem으로 설정
+//$font-size-base: 1rem !default;
+
+//line height style
+$line-height-none: 1 !default;
+$line-height-base: 1.5 !default;
+
+//transition
+$transition-base: 0.4s ease-in-out !default;
+$transition-fade: opacity 0.4s linear !default;
+$transition-collapse: max-height 0.4s ease !default;
+$transition-collapse-width: width 0.4s ease !default;
+
+//color
+
+//mh colors
+$mh-00: #ffffff;
+$mh-02: #F6F6FE;
+$mh-05: #E5E4FB;
+$mh-08: #CAC8F7;
+$mh-10: #DCDAFA;
+$mh-15: #CAC8F7;
+$mh-20: #B9B5F5;
+$mh-25: #A7A3F2;
+$mh-30: #9590EF;
+$mh-35: #847EED;
+$mh-40: #726BEA;
+$mh-45: #6159E8;
+$mh-50: #4F46E5;
+$mh-55: #473FCE;
+$mh-60: #3F38B7;
+$mh-65: #3731A0;
+$mh-70: #2F2A89;
+$mh-75: #282373;
+$mh-80: #201C5C;
+$mh-85: #201C5C;
+$mh-90: #181545;
+$mh-95: #100E2E;
+$mh-100: #000000;
+
+$mh-colors: (
+	"0": $mh-00,
+	"2": $mh-02,
+	"5": $mh-05,
+	"8": $mh-08,
+	"10": $mh-10,
+	"15": $mh-15,
+	"20": $mh-20,
+	"25": $mh-25,
+	"30": $mh-30,
+	"35": $mh-35,
+	"40": $mh-40,
+	"45": $mh-45,
+	"50": $mh-50,
+	"55": $mh-55,
+	"60": $mh-60,
+	"65": $mh-65,
+	"70": $mh-70,
+	"75": $mh-75,
+	"80": $mh-80,
+	"85": $mh-85,
+	"90": $mh-90,
+	"95": $mh-95,
+	"100": $mh-100
+) !default;
+
+//primary colors
+$primary-00: #ffffff;
+$primary-02: #f1f4f4;
+$primary-05: #e9eeed;
+$primary-08: #cad4cd;
+$primary-10: #bccbc8;
+$primary-20: #8fa8a4;
+$primary-30: #628580;
+$primary-40: #35625b;
+$primary-50: #1e5149;
+$primary-60: #1b4942;
+$primary-70: #18413a;
+$primary-80: #12312c;
+$primary-90: #0c201d;
+$primary-100: #000000;
+
+$primary-colors: (
+	"0": $primary-00,
+	"2": $primary-02,
+	"5": $primary-05,
+	"8": $primary-08,
+	"10": $primary-10,
+	"20": $primary-20,
+	"30": $primary-30,
+	"40": $primary-40,
+	"50": $primary-50,
+	"60": $primary-60,
+	"70": $primary-70,
+	"80": $primary-80,
+	"90": $primary-90,
+	"100": $primary-100
+) !default;
+
+//secondary colors
+$secondary-00: #ffffff;
+$secondary-05: #f3f1ed;
+$secondary-10: #c6c1b3;
+$secondary-20: #b1a995;
+$secondary-25: #97907f;
+$secondary-30: #81785f;
+$secondary-32: #6f6750;
+$secondary-40: #665d44;
+$secondary-50: #554b2f;
+$secondary-60: #4d442a;
+$secondary-70: #443c26;
+$secondary-80: #332d1c;
+$secondary-90: #2b2618;
+$secondary-100: #000000;
+
+$secondary-colors: (
+	"0": $secondary-00,
+	"5": $secondary-05,
+	"10": $secondary-10,
+	"20": $secondary-20,
+	"25": $secondary-25,
+	"30": $secondary-30,
+	"32": $secondary-32,
+	"40": $secondary-40,
+	"50": $secondary-50,
+	"60": $secondary-60,
+	"70": $secondary-70,
+	"80": $secondary-80,
+	"90": $secondary-90,
+	"100": $secondary-100
+) !default;
+
+//Accent colors
+$accent-00: #ffffff;
+$accent-05: #faefe9;
+$accent-10: #f1cebe;
+$accent-20: #e8ae93;
+$accent-30: #de8d67;
+$accent-40: #d56c3c;
+$accent-50: #d05c26;
+$accent-60: #bb5322;
+$accent-70: #a64a1e;
+$accent-80: #7d3717;
+$accent-90: #53250f;
+$accent-100: #000000;
+
+$accent-colors: (
+	"0": $accent-00,
+	"5": $accent-05,
+	"10": $accent-10,
+	"20": $accent-20,
+	"30": $accent-30,
+	"40": $accent-40,
+	"50": $accent-50,
+	"60": $accent-60,
+	"70": $accent-70,
+	"80": $accent-80,
+	"90": $accent-90,
+	"100": $accent-100
+) !default;
+
+//skin colors
+$skin-00: #ffffff;
+$skin-05: #fffefd;
+$skin-10: #fef9f5;
+$skin-20: #fef5ed;
+$skin-30: #fef1e5;
+$skin-40: #fdecdd;
+$skin-50: #fde7d3;
+$skin-60: #dac7b6;
+$skin-70: #ac9d8f;
+$skin-80: #7e7369;
+$skin-90: #393430;
+$skin-100: #000000;
+
+$skin-colors: (
+	"0": $skin-00,
+	"5": $skin-05,
+	"10": $skin-10,
+	"20": $skin-20,
+	"30": $skin-30,
+	"40": $skin-40,
+	"50": $skin-50,
+	"60": $skin-60,
+	"70": $skin-70,
+	"80": $skin-80,
+	"90": $skin-90,
+	"100": $skin-100
+) !default;
+
+//brown colors
+$brown-00: #ffffff;
+$brown-05: #fefcfb;
+$brown-10: #f9f2ec;
+$brown-20: #f5e8dc;
+$brown-30: #f0decd;
+$brown-40: #e9ceb5;
+$brown-50: #c6ab92;
+$brown-60: #b19a83;
+$brown-70: #887564;
+$brown-80: #5e5145;
+$brown-90: #342d26;
+$brown-100: #000000;
+
+$brown-colors: (
+	"0": $brown-00,
+	"5": $brown-05,
+	"10": $brown-10,
+	"20": $brown-20,
+	"30": $brown-30,
+	"40": $brown-40,
+	"50": $brown-50,
+	"60": $brown-60,
+	"70": $brown-70,
+	"80": $brown-80,
+	"90": $brown-90,
+	"100": $brown-100
+) !default;
+
+//light brown colors
+$light-brown-00: #ffffff;
+$light-brown-05: #fefdfd;
+$light-brown-10: #f9f7f4;
+$light-brown-20: #f5f0eb;
+$light-brown-30: #f0eae2;
+$light-brown-40: #ebe4d9;
+$light-brown-50: #e6dcce;
+$light-brown-60: #b1aa9f;
+$light-brown-70: #88827a;
+$light-brown-80: #5e5a54;
+$light-brown-90: #34322f;
+$light-brown-100: #000000;
+
+$light-brown-colors: (
+	"0": $light-brown-00,
+	"5": $light-brown-05,
+	"10": $light-brown-10,
+	"20": $light-brown-20,
+	"30": $light-brown-30,
+	"40": $light-brown-40,
+	"50": $light-brown-50,
+	"60": $light-brown-60,
+	"70": $light-brown-70,
+	"80": $light-brown-80,
+	"90": $light-brown-90,
+	"100": $light-brown-100
+) !default;
+
+//orange
+$orange-00: #ffffff;
+$orange-05: #fff9f3;
+$orange-08: #e6dcce;
+$orange-10: #ffe4c5;
+$orange-20: #ffcf96;
+$orange-30: #ffba68;
+$orange-40: #ffa43a;
+$orange-50: #ff8a00;
+$orange-60: #c56a00;
+$orange-70: #965100;
+$orange-80: #683800;
+$orange-90: #221200;
+$orange-100: #000000;
+
+$orange-colors: (
+	"0": $orange-00,
+	"5": $orange-05,
+	"8": $orange-08,
+	"10": $orange-10,
+	"20": $orange-20,
+	"30": $orange-30,
+	"40": $orange-40,
+	"50": $orange-50,
+	"60": $orange-60,
+	"70": $orange-70,
+	"80": $orange-80,
+	"90": $orange-90,
+	"100": $orange-100
+) !default;
+
+//Sand
+$sand-00: #ffffff;
+$sand-05: #f7f6f2;
+$sand-10: #f5f0e5;
+$sand-20: #eee6d2;
+$sand-30: #dfd5bc;
+$sand-40: #d0c4a5;
+$sand-50: #c1b48f;
+$sand-54: #c4b184;
+$sand-60: #bca17b;
+$sand-70: #847258;
+$sand-80: #574622;
+$sand-90: #13110b;
+$sand-100: #000000;
+
+$sand-colors: (
+	"0": $sand-00,
+	"5": $sand-05,
+	"10": $sand-10,
+	"20": $sand-20,
+	"30": $sand-30,
+	"40": $sand-40,
+	"50": $sand-50,
+	"54": $sand-54,
+	"60": $sand-60,
+	"70": $sand-70,
+	"80": $sand-80,
+	"90": $sand-90,
+	"100": $sand-100
+) !default;
+
+//Gold
+$gold-00: #ffffff;
+$gold-05: #fdf7e9;
+$gold-10: #faefd3;
+$gold-20: #f5dfa7;
+$gold-30: #f1cf7a;
+$gold-40: #f8ca3d;
+$gold-50: #ffc600;
+$gold-60: #e7af22;
+$gold-68: #b6985a;
+$gold-70: #b08f47;
+$gold-80: #4a3c2b;
+$gold-90: #2e2307;
+$gold-100: #000000;
+
+$gold-colors: (
+	"0": $gold-00,
+	"5": $gold-05,
+	"10": $gold-10,
+	"20": $gold-20,
+	"30": $gold-30,
+	"40": $gold-40,
+	"50": $gold-50,
+	"60": $gold-60,
+	"68": $gold-68,
+	"70": $gold-70,
+	"80": $gold-80,
+	"90": $gold-90,
+	"100": $gold-100
+) !default;
+
+//gray colors
+
+$gray-00: #ffffff;
+$gray-02: #f4f4f4;
+$gray-05: #f8f8f8;
+$gray-10: #f5f5f5;
+$gray-20: #eeeeee;
+$gray-26: #e1e0dd;
+$gray-30: #dbdad6;
+$gray-38: #d9d9d9;
+$gray-39: #b5b5b5;
+$gray-40: #a8a9ad;
+$gray-50: #9e9e9e;
+$gray-55: #888888;
+$gray-60: #818286;
+$gray-65: #696969;
+$gray-70: #606060;
+$gray-80: #424242;
+$gray-90: #212121;
+$gray-100: #000000;
+
+$gray-colors: (
+	"0": $gray-00,
+	"2": $gray-02,
+	"5": $gray-05,
+	"10": $gray-10,
+	"20": $gray-20,
+	"26": $gray-26,
+	"30": $gray-30,
+	"38": $gray-38,
+	"39": $gray-39,
+	"40": $gray-40,
+	"50": $gray-50,
+	"55": $gray-55,
+	"60": $gray-60,
+	"65": $gray-65,
+	"70": $gray-70,
+	"80": $gray-80,
+	"90": $gray-90,
+	"100": $gray-100
+) !default;
+
+//red colors
+$red-00: #ffffff;
+$red-05: #f799b1;
+$red-10: #f36689;
+$red-20: #f14d76;
+$red-30: #ef3362;
+$red-40: #ed194f;
+$red-50: #ed1b2f;
+$red-60: #d40035;
+$red-70: #bc002f;
+$red-80: #a50029;
+$red-90: #8d0023;
+$red-100: #000000;
+
+$red-colors: (
+	"0": $red-00,
+	"5": $red-05,
+	"10": $red-10,
+	"20": $red-20,
+	"30": $red-30,
+	"40": $red-40,
+	"50": $red-50,
+	"60": $red-60,
+	"70": $red-70,
+	"80": $red-80,
+	"90": $red-90,
+	"100": $red-100
+) !default;
+
+//blue colors
+$blue-00: #ffffff !default;
+$blue-05: #eff5ff !default;
+$blue-10: #d3e1fb !default;
+$blue-20: #a7c4f7 !default;
+$blue-30: #7ca6f3 !default;
+$blue-40: #5089ef !default;
+$blue-50: #0071ce !default;
+$blue-60: #1d56bc !default;
+$blue-66: #225a8f !default;
+$blue-70: #2b3386 !default;
+$blue-80: #0e2b5e !default;
+$blue-90: #07152f !default;
+$blue-100: #000000 !default;
+
+$blue-colors: (
+	"0": $blue-00,
+	"5": $blue-05,
+	"10": $blue-10,
+	"20": $blue-20,
+	"30": $blue-30,
+	"40": $blue-40,
+	"50": $blue-50,
+	"60": $blue-60,
+	"66": $blue-66,
+	"70": $blue-70,
+	"80": $blue-80,
+	"90": $blue-90,
+	"100": $blue-100
+) !default;
+
+//green colors
+$green-00: #ffffff !default;
+$green-05: #f0fdf4 !default;
+$green-10: #dcfce7 !default;
+$green-20: #bbf7d0 !default;
+$green-30: #86efac !default;
+$green-40: #4ade80 !default;
+$green-50: #22c55e !default;
+$green-60: #16a34a !default;
+$green-70: #15803d !default;
+$green-80: #166534 !default;
+$green-90: #14532d !default;
+$green-100: #000000 !default;
+
+$green-colors: (
+	"0": $green-00,
+	"5": $green-05,
+	"10": $green-10,
+	"20": $green-20,
+	"30": $green-30,
+	"40": $green-40,
+	"50": $green-50,
+	"60": $green-60,
+	"70": $green-70,
+	"80": $green-80,
+	"90": $green-90,
+	"100": $green-100
+) !default;
+
+//colors
+$white: $gray-00 !default;
+$black: $gray-100 !default;
+$mh: $mh-50 !default;
+$primary: $primary-50 !default;
+$secondary: $secondary-50 !default;
+$accent: $accent-50 !default;
+$skin: $skin-50 !default;
+$brown: $brown-50 !default;
+$light-brown: $light-brown-50 !default;
+$orange: $orange-50 !default;
+$sand: $sand-50 !default;
+$gold: $gold-50 !default;
+$gray: $gray-50 !default;
+$red: $red-50 !default;
+$blue: $blue-50 !default;
+$green: $green-50 !default;
+$danger: #e8003b !default;
+$warning: #ffb724 !default;
+$success: #008a1e !default;
+$information: #2768ff !default;
+
+$colors: (
+	"white": $white,
+	"black": $black,
+	"mh": $mh,
+	"primary": $primary,
+	"secondary": $secondary,
+	"accent": $accent,
+	"skin": $skin,
+	"brown": $brown,
+	"light-brown": $light-brown,
+	"orange": $orange,
+	"sand": $sand,
+	"gold": $gold,
+	"gray": $gray,
+	"red": $red,
+	"blue": $blue,
+	"green": $green,
+	"danger": $danger,
+	"warning": $warning,
+	"success": $success,
+	"information": $information
+);
+
+
+
+// 이미지 경로 변수
+$image-path: "../images" !default;

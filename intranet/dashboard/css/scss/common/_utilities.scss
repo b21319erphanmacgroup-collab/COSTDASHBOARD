@@ -1,0 +1,29 @@
+@use "../mixins/utils" as *;
+
+.display-none { display: none !important; }
+.display-block { display: block !important; }
+.display-flex { display: flex !important; }
+
+.flex-row { display:flex; flex-direction: row; flex-wrap: nowrap; }
+.flex-column { display:flex; flex-direction: column; flex-wrap: nowrap; }
+.flex-row-between { display:flex; flex-direction: row; justify-content: space-between; flex-wrap: nowrap; }
+.flex1{flex:1;}
+
+.overflow-hidden { overflow: hidden; }
+.overflow-x-auto { overflow-x: auto; }
+.overflow-y-auto { overflow-y: auto; }
+
+.scroll-wrap { flex-grow: 1; width: 100%; height: auto; padding: 0 5px 5px 0; overflow: auto; }
+
+.padding-0 { padding: 0 !important; }
+
+// 드래그 방지 클래스
+.drag-disable { @include user-select(none); }
+// 드래그 허용 클래스
+.draggable { @include user-select(auto); }
+
+.cursor-default { cursor: default !important; }
+
+.txt-ag-l { text-align: left !important; }
+.txt-ag-c { text-align: center !important; }
+.txt-ag-r { text-align: right !important; }

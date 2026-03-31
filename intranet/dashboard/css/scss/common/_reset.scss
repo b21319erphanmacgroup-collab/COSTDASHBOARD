@@ -1,0 +1,332 @@
+//이곳은 reset입니다
+
+@use 'sass:color';
+@use "../component/variables" as *; //베리어블 변수파일
+@use "../mixins/utils" as *; //mixin 정의
+
+/***********************************************Reset****************************************************/
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	font-family: $font-family-base;
+	color: var(--#{$prefix}gray-90);
+	line-height: $line-height-base;
+	word-break: keep-all;
+	word-wrap: break-word;
+	-webkit-tap-highlight-color: transparent;
+	scroll-behavior: smooth;
+}
+html {
+	font-size: $font-size-root;
+}
+body {
+	min-height: 100dvh;
+	overflow-x: hidden;
+}
+
+*:focus {
+	//@include focus();
+}
+::-moz-selection {
+	background: var(--#{$prefix}danger);
+	color: var(--#{$prefix}gray-0);
+}
+::selection {
+	background: var(--#{$prefix}danger);
+	color: var(--#{$prefix}gray-0);
+}
+
+body,
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+dl,
+dt,
+dd,
+table,
+th,
+td,
+form,
+fieldset,
+legend,
+input,
+textarea,
+a,
+button,
+select,
+span,
+em,
+label,
+::before,
+::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	-webkit-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+	font-family: inherit;
+	line-height: $line-height-base;
+	letter-spacing: inherit;
+}
+pre {
+	font-family: inherit;
+}
+input,
+textarea,
+a,
+button,
+select,
+span,
+label,
+::before,
+::after {
+	font: {
+		size: inherit;
+		weight: inherit;
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+.fwB {
+	//font-weight: 700;
+	font-weight: inherit;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+hgroup,
+main,
+menu,
+nav,
+section {
+	display: block;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+footer {
+	padding: var(--#{$prefix}spacer-1) var(--#{$prefix}spacer-4);
+}
+
+img,
+fieldset {
+	border: 0;
+}
+fieldset {
+	min-width: 100%;
+}
+img {
+	max-width: 100%;
+	vertical-align: initial;
+}
+ul,
+ol,
+li {
+	list-style: none;
+}
+em,
+address,
+i {
+	font-style: normal;
+}
+a,
+a:hover,
+a:active,
+a:focus {
+	color: inherit;
+	text-decoration: none;
+}
+button,
+input[type="submit"],
+input[type="button"] {
+	overflow: visible;
+	margin: 0;
+	background-color: transparent;
+	border: none;
+	-webkit-appearance: button;
+	cursor: pointer;
+	font: inherit;
+	color: inherit;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+	padding: 0;
+	border: 0;
+}
+
+textarea {
+	resize: none;
+}
+
+label {
+	cursor: pointer;
+}
+
+select {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="password"],
+input[type="file"],
+input[type="number"],
+input[type="email"],
+input[type="date"],
+input[type="search"],
+textarea {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+table {
+	border-collapse: collapse;
+}
+caption {
+	display: none;
+}
+
+[role="button"] {
+	cursor: pointer;
+}
+iframe {
+	margin: 0;
+	padding: 0;
+	border: 0px;
+	outline: 0px;
+	&:focus {
+		outline: 0px;
+	}
+}
+
+* {
+	$size: 0.6rem;
+	$track-color: #f1f1f1;
+	$thumb-color: #c1c1c1;
+	$thumb-hover: #a8a8a8;
+	$thumb-active: #909090;
+	$button-color: #e0e0e0;
+	$button-hover: #d0d0d0;
+	$arrow-color: #666666;
+
+	// 스크롤바 스타일 설정
+	::-webkit-scrollbar {
+		height: $size;
+		width: $size;
+	}
+
+	// 스크롤바 트랙 스타일 설정
+	::-webkit-scrollbar-track {
+		border-radius: 0.4rem;
+		background-color: $track-color;
+
+		&:hover {
+			background-color: darken($track-color, 5%);
+		}
+	}
+
+	// 스크롤바 막대 스타일 설정
+	::-webkit-scrollbar-thumb {
+		border-radius: 0.4rem;
+		background-color: $thumb-color;
+		border: 1px solid color.scale($thumb-color, $lightness: -10%);
+		transition: background-color 0.2s ease;
+
+		&:hover {
+			background-color: $thumb-hover;
+		}
+
+		&:active {
+			background-color: $thumb-active;
+		}
+	}
+
+	// 스크롤바 버튼
+	::-webkit-scrollbar-button:single-button {
+		display: block;
+		height: $size;
+		width: $size;
+		background-color: $button-color;
+		background-size: 6px 6px;
+		background-repeat: no-repeat;
+		background-position: center center;
+		border-radius: 0.2rem;
+		transition: background-color 0.2s ease;
+	}
+
+	// Up 버튼
+	::-webkit-scrollbar-button:single-button:vertical:decrement {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7' viewBox='0 0 7 7' fill='none'%3E%3Cpath d='M7 5H0V4H1V3H2V2H3V1H4V2H5V3H6V4H7V5Z' fill='#{$arrow-color}'/%3E%3C/svg%3E");
+		border-radius: 0.2rem 0.2rem 0 0;
+	}
+
+	::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+		background-color: $button-hover;
+	}
+
+	// Down 버튼
+	::-webkit-scrollbar-button:single-button:vertical:increment {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7' viewBox='0 0 7 7' fill='none'%3E%3Cpath d='M8.74228e-08 2L7 2V3L6 3V4H5V5L4 5V6H3V5H2V4L1 4L1 3L0 3L8.74228e-08 2Z' fill='#{$arrow-color}'/%3E%3C/svg%3E");
+		border-radius: 0 0 0.2rem 0.2rem;
+	}
+
+	::-webkit-scrollbar-button:vertical:single-button:increment:hover {
+		background-color: $button-hover;
+	}
+
+	// Left 버튼
+	::-webkit-scrollbar-button:single-button:horizontal:decrement {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='7' viewBox='0 0 3 7' fill='none'%3E%3Cpath d='M3 0.5L-1.31134e-07 3.5L3 6.5L3 0.5Z' fill='#{$arrow-color}'/%3E%3C/svg%3E");
+		border-radius: 0.2rem 0 0 0.2rem;
+	}
+
+	::-webkit-scrollbar-button:single-button:horizontal:decrement:hover {
+		background-color: $button-hover;
+	}
+
+	// Right 버튼
+	::-webkit-scrollbar-button:single-button:horizontal:increment {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='7' viewBox='0 0 4 7' fill='none'%3E%3Cpath d='M0.5 6.5L3.5 3.5L0.5 0.5L0.5 6.5Z' fill='#{$arrow-color}'/%3E%3C/svg%3E");
+		border-radius: 0 0.2rem 0.2rem 0;
+	}
+
+	::-webkit-scrollbar-button:horizontal:single-button:increment:hover {
+		background-color: $button-hover;
+	}
+}
+
+/***********************************************Reset끝****************************************************/

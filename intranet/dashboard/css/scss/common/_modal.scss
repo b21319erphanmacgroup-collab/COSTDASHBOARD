@@ -1,0 +1,279 @@
+//모달 컴포넌트 스타일
+
+@use "../component/variables" as *;
+@use "../mixins/utils" as *;
+
+// ===================================================
+// 모달 공용 스타일
+// ===================================================
+
+.modal {
+    @include position($p: fixed, $t: 0, $r: 0, $b: 0, $l: 0);
+    @include flex-layout($d: none, $ai: center, $jc: center);
+    z-index: 10;
+
+    // 모달 열림 상태 (.modal.is-open)
+    &.is-open {
+        display: flex;
+    }
+
+    // 모달 오버레이 (.modal-overlay)
+    &-overlay {
+        @include position($p: absolute, $t: 0, $r: 0, $b: 0, $l: 0);
+        z-index: -1;
+        background: rgba($gray-90, 0.6);
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+    }
+
+    // 모달 컨텐츠 (.modal-content)
+    &-content {
+        @include position($p: relative);
+        @include flex-layout($d: flex, $ai: stretch, $jc: flex-start, $fd: column);
+        z-index: 1;
+        max-width: 90vw;
+        max-height: 90vh;
+        background: transparent;
+        border-radius: 2rem;
+        box-shadow: 4px 8px 10px 0 rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    // 모달 헤더 (.modal-header)
+    &-header {
+        @include flex-layout($d: flex, $ai: center, $jc: flex-start);
+        width: 100%;
+        padding: 1rem 1.2rem 0;
+        @include font($fw: 600, $fz: 2rem, $color: var(--#{$prefix}primary-0), $lh: 100%);
+        background: var(--#{$prefix}gray-0);
+    }
+
+    // 모달 바디 (.modal-body)
+    &-body {
+        @include flex-layout($d: flex, $ai: center, $jc: center, $fd: column);
+        flex: 1;
+        //gap: 1.6rem;
+        //padding: 2.4rem 2rem;
+        @include font($fw: 500, $fz: 1.6rem, $color: var(--#{$prefix}gray-80), $lh: 1.5, $ta: center);
+        background: var(--#{$prefix}gray-0);
+        overflow-y: auto;
+    }
+
+    // 모달 메시지 (.modal-message)
+    &-message {
+        @include font($fw: 500, $fz: 1.6rem, $color: var(--#{$prefix}gray-80), $lh: 1.5, $ta: center);
+    }
+
+    // 모달 푸터 (.modal-footer)
+    &-footer {
+        @include flex-layout($d: flex, $ai: center, $jc: center);
+        gap: 0.8rem;
+        width: 100%;
+        padding: 0 1.2rem 1.2rem 1.2rem;
+        background: var(--#{$prefix}gray-0);
+
+        .btn {
+            flex: 1;
+            min-width: 8rem;
+
+            &.fit {
+                flex: 0 0 fit-content;
+                width: fit-content;
+            }
+        }
+    }
+
+    // 모달 닫기 버튼 (.modal-close)
+    &-close {
+        @include position($p: absolute, $t: 2.4rem, $r: 2.4rem);
+        @include flex-layout($d: flex, $ai: center, $jc: center);
+        width: 3.4rem;
+        height: 3.4rem;
+        padding: 0;
+        color: var(--#{$prefix}gray-0);
+        background: var(--#{$prefix}secondary-10);
+        border: 1px solid var(--#{$prefix}secondary-30);
+        border-radius: 0.4rem;
+        cursor: pointer;
+        transition: all $transition-base;
+
+        &:hover {
+            background: var(--#{$prefix}secondary-20);
+            border: 1px solid var(--#{$prefix}secondary-40);
+        }
+        svg {
+            width: 90%;
+            height: auto;
+        }
+    }
+
+    // 모달 아이콘 (.modal-icon)
+    &-icon {
+        @include flex-layout($d: flex, $ai: center, $jc: center);
+        width: 7rem;
+        height: 7rem;
+        margin-bottom: 0.8rem;
+        border-radius: 50%;
+    }
+}
+
+// ===================================================
+// 인트라넷 업무검토 모달
+// ===================================================
+.confirm-modal {
+  @include position($p: fixed, $t: 0, $r: 0, $b: 0, $l: 0);
+  display: none;
+  @include flex-layout($d: flex, $ai: center, $jc: center);
+  z-index: 100;
+  display: none;
+  &.is-open {
+    display: flex;
+  }
+
+  /* overlay */
+  &-overlay {
+    @include position($p: absolute, $t: 0, $r: 0, $b: 0, $l: 0);
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  /* content */
+  &-content {
+    @include flex-layout($d: flex, $fd: column, $jc:flex-start, $ai:center);
+    width: 36rem;
+    background: var(--#{$prefix}gray-0);
+    border-radius: 0.6rem;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+
+  /* header */
+  &-header {
+    @include flex-layout($d: flex, $ai: center, $jc: space-between);
+    padding: .8rem 1.2rem;
+    width: 100%;
+    background: var(--#{$prefix}gray-65);
+    @include font($fw: 600, $fz: 1.5rem, $color: var(--#{$prefix}gray-0));
+  }
+
+  &-close {
+    background: transparent;
+    border: none;
+    color: var(--#{$prefix}gray-0);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  /* body */
+  &-body {
+    @include flex-layout($d: flex, $fd: row, $ai: center, $jc: center);
+    gap: 1rem;
+    padding: 1.4rem 0rem;
+    //text-align: center;
+  }
+
+  &-icon {
+    @include flex-layout($d: flex, $ai: center, $jc: center);
+
+  }
+
+  &-message {
+    @include font(
+      $fw: 500,
+      $fz: 1.4rem,
+      $color: var(--#{$prefix}gray-80),
+      $lh: 1.5
+    );
+
+    strong {
+      color: var(--#{$prefix}red-50);
+    }
+  }
+
+  /* footer */
+  &-footer {
+    @include flex-layout($d: flex, $ai: center, $jc: space-between);
+    gap: 0.8rem;
+    padding: 1.2rem 1.6rem;
+    width: 100%;
+    background: var(--#{$prefix}gray-5);
+
+    .btn {
+      flex: 1;
+    }
+  }
+}
+
+// 선택 버튼
+.btn-select {
+    display: none;
+    width: 100%;
+    max-width: 16rem;
+    padding: 0.8rem 2.4rem;
+    margin-top: 0.8rem;
+    @include font($fw: 600, $fz: 1.4rem, $color: var(--#{$prefix}gray-0), $lh: 100%);
+    border-radius: 0.8rem;
+    border: 1px solid var(--#{$prefix}primary-30);
+    background: var(--#{$prefix}primary-40);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(2rem);
+    transition:
+        background 0.3s ease,
+        border 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+    &:hover {
+        background: var(--#{$prefix}orange-50);
+        border: 1px solid var(--#{$prefix}orange-70);
+        transform: translateY(-0.2rem);
+        box-shadow: 0 0.6rem 1.6rem rgba($primary-50, 0.4);
+    }
+}
+
+
+// ===================================================
+// 반응형 스타일
+// ===================================================
+
+@media (max-width: 1400px) {
+    .service-card-grid {
+        gap: 1.6rem;
+    }
+
+    .service-card-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 1200px) {
+    .modal-service-select {
+        .modal-content {
+            padding: 3.2rem;
+        }
+    }
+
+    .service-card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        .service-card {
+            width: 16rem;
+            height: 16rem;
+            .service-card-thumb {
+                &::after {
+                    background: rgba(0, 0, 0, 0.8);
+                }
+            }
+            .service-card-title {
+                font-size: 1.6rem;
+            }
+            &:hover,
+            &.active {
+                .service-card-icon {
+                    display: none;
+                }
+            }
+        }
+    }
+}

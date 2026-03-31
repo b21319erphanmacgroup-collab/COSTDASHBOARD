@@ -1,0 +1,13 @@
+//scss 분산 파일 모음 - 분산된 페이지들 모음
+
+//common 불러오기 - 공용class 정의 모음
+@forward "common/common";
+
+//sidebar 불러오기
+@forward "common/sidebar";
+
+//header 불러오기
+@forward "common/header";
+
+//footer 불러오기
+@forward "common/footer";

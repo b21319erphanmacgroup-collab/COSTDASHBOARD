@@ -1,0 +1,44 @@
+@charset "UTF-8";
+/*last update 2026.03.18*/
+
+/*plugin*/
+
+/***이파일은 sass전처리기를 사용하였으며 style.scss에서 작성되었습니다***/
+/***style.css파일의 직접적 수정을 하지말아주세요 버전관리가 되지 않습니다***/
+/*
+===============================================================================================
+M/H dashboard (맨아워 대시보드) -scss문서
+
+> 유의사항
+─ 디자이너 외 직군 수정금지 or 수정시 웹솔루션으로 문의
+─ 디자인이 확정되지 않은 상태로 작성된 파일입니다 여러버전이 존재하는 상태입니다. UI완료 후 파일 정리를 꼭 합시다
+
+> 구조
+
+
+> font 정리(이름,저작자,라이선스)
+
+- Pretendard(cactus.tistory.com/306,SIL 오픈 폰트 라이선스) 1.3.9
+- Saira
+
+> z-index 정리
+- -1 : modal-content(모달 컨텐츠), project-table-head(프로젝트별 상세 집행현황 헤더)
+- 1 : header(헤더), aside(사이드바), footer(푸터), search-icon(권한 설정 모달 검색 아이콘)
+- 5 : history-modal(이력관리 모달) , tooltip-box(툴팁 본체)
+- 10 : modal(모달)
+- 11 : modal-overlay(권한 설정 모달 오버레이)
+- 500 :
+- 999 : 
+- 1000 :  
+
+===============================================================================================
+*/
+/*공통 베리어블 variables*/
+// Pretendard 폰트는 includeDefault에서 forward로 제공됨
+// Saira 폰트는 includeDefault에서 forward로 제공됨
+
+
+// @use "pretendardvariable" as *; // 중복 방지를 위해 주석 처리
+@use "scss/includeDefault" as *; //기본설정scss모음(root,variables,reset,font등)
+@use "scss/includePages" as *; //공용class, 각 페이지들 모음
+

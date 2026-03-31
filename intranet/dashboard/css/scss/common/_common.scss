@@ -1,0 +1,54 @@
+//이곳은 공용으로 적용되는 scss들을 묶어둔 파일입니다
+
+// 필요한 개별 모듈만 import
+@use "../component/variables" as *; // 변수만 가져오기
+@use "../mixins/utils" as *; // 믹신만 가져오기
+
+body {
+	@include flex-layout($d: flex, $ai: flex-start, $jc: flex-start, $fd: row, $fw: nowrap);
+	@include position($p: relative);
+	width: 100%;
+	min-width: 100rem; // 최소 가로 사이즈 1000px
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-size: clamp(1.2rem, vw(12), 1.6rem);
+	background-color: var(--#{$prefix}primary-0);
+	overflow: hidden;
+	header {
+		@include position($p: fixed, $t: 0, $l: 0);
+		z-index: 1;
+		width: 100%;
+		height: var(--header-height);
+		background-color: rgba(3, 26, 22, 0.8);
+		overflow: hidden;
+	}
+	main {
+		width: 100%;
+		height: 100%;
+	}
+
+	aside {
+		@include position($p: relative);
+		z-index: 1;
+		height: 100%;
+		background-color: #1E2848;
+		box-shadow: 0px 8px 28px rgba(0, 0, 0, 0.2);
+	}
+	footer {
+		z-index: 1;
+		@include position($p: relative);
+		width: 100%;
+		height: var(--footer-height);
+		background-color: #c0c0c0;
+		overflow: hidden;
+	}
+
+	main {
+		width: 100%;
+		height: 100%;
+		transition: width 0.3s ease;
+	}
+}
+
+.br{border: 1px solid var(--#{$prefix}gray-5);}

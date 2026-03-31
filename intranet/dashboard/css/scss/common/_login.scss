@@ -1,0 +1,159 @@
+//이곳은 login 스타일입니다
+
+// 필요한 개별 모듈만 import
+@use "../component/variables" as *; // 변수만 가져오기
+@use "../mixins/utils" as *; // 믹신만 가져오기
+
+
+@font-face {
+  font-family: 'Aldrich';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../font/aldrich-v22-latin-regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+
+.aldrich-regular {
+  font-family: "Aldrich", sans-serif !important;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.login-wrap {
+    width: 100vw;
+    height: 100vh;
+    background: url("./../images/login/bg-login.jpg") center / cover no-repeat;
+    @include flex-layout($d: flex, $jc: center, $ai: center);
+
+    &.is-error {
+        
+        .login-panel .login-form .input-group input {
+            border-color: var(--#{$prefix}red-50);
+            background-color: #FFE9EF;
+        }
+        
+        .error-icon {
+            display: block !important;
+        }
+
+        .helper-text {
+            display: block !important;
+        }
+    }
+
+    /* ===== 로그인 패널 ===== */
+    .login-panel {
+        width: 49rem;
+        padding: 3rem;
+        background-color: rgba(18, 16, 49, 0.6);
+        border: 1px solid #121031;
+        backdrop-filter: blur(0.3rem);
+        border-radius: 0.6rem;
+
+        /* ===== 타이틀 ===== */
+        .logo {
+            font-family: "Aldrich", sans-serif !important;
+            margin-bottom: 4rem;
+            @include font($fw: 400, $fz: 3.8rem, $lh: 1.2, $ta: center, $color: var(--#{$prefix}gray-0));
+        
+        }
+
+        /* ===== 폼 ===== */
+        .login-form {
+            @include flex-layout($d: flex, $fd: column);
+
+            &:focus-within {
+                input:focus {
+                    background: var(--#{$prefix}mh-5);
+                    border: 1px solid var(--#{$prefix}mh-50);
+                    box-shadow: 0 0 0 0.2rem rgba(91, 108, 255, 0.25);
+                    color: var(--#{$prefix}gray-80);
+                }
+            }
+
+            /* 인풋에 값이 하나라도 들어갔을 때 버튼 스타일 변경 */
+            &:has(input:not(:placeholder-shown)) {
+                .btn-login {
+                    background: linear-gradient(180deg, var(--#{$prefix}mh-50), var(--#{$prefix}mh-65));
+
+                    &.active,
+                    &:hover {
+                        background: linear-gradient(180deg, var(--#{$prefix}mh-60), var(--#{$prefix}mh-80));
+                    }
+                }
+            }
+
+            /* ===== 인풋 그룹 ===== */
+            .input-group {
+                position: relative;
+                width: 100%;
+                margin-bottom: 1.2rem;
+
+                input {
+                    width: 100%;
+                    padding: 1rem 1.2rem;
+                    border-radius: 0.4rem;
+                    border: 1px solid var(--#{$prefix}mh-50);
+                    background-color: var(--#{$prefix}mh-2);
+                    outline: none;
+                    @include font($fw: 500, $fz: 1.6rem, $lh: 1.4, $color: var(--#{$prefix}gray-80));
+
+                    /* 입력 완료 + 포커스 없음 */
+                    &:not(:focus):not(:placeholder-shown) {
+                        background-color: var(--#{$prefix}gray-0);
+                    }
+                }
+
+                /* ===== 에러 아이콘 ===== */
+                .error-icon {
+                    display: none;
+                    position: absolute;
+                    right: 1rem;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+            }
+
+            /* ===== 로그인 버튼 ===== */
+            .btn-login {
+                width: 100%;
+                margin-top: 1.2rem;
+                padding: 1rem;
+                border: none;
+                border-radius: 0.4rem;
+                cursor: pointer;
+
+                /* 최초 진입 상태 */
+                background: linear-gradient(180deg, var(--#{$prefix}gray-40), var(--#{$prefix}gray-60));
+                @include font($fw: 500, $fz: 1.5rem, $color: var(--#{$prefix}gray-0));
+                transition: background 0.2s ease;
+
+                &:disabled {
+                    opacity: 0.6;
+                    cursor: not-allowed;
+                }
+
+                &.active,
+                &:hover {
+                    background: linear-gradient(180deg, var(--#{$prefix}gray-50), var(--#{$prefix}gray-70));
+                }
+            }
+
+            /* ===== 에러 메시지(헬퍼 텍스트) ===== */
+            .helper-text {
+                display: none;
+                margin-top: 0.8rem;
+                @include font($fw: 500, $fz: 1.2rem, $lh: 1.4, $color: var(--#{$prefix}red-40));
+            }
+        }
+    }
+
+    /* ===== 반응형 ===== */
+    @media (max-width: 48rem) {
+        .login-panel {
+            width: calc(100% - 3.2rem);
+            padding: 2.4rem;
+        }
+    }
+}

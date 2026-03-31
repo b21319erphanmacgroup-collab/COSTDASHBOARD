@@ -1,0 +1,143 @@
+//이곳은 button 컴포넌트 스타일입니다
+
+// 필요한 개별 모듈만 import
+@use "../component/variables" as *; // 변수만 가져오기
+@use "../mixins/utils" as *; // 믹신만 가져오기
+
+//버튼 기본스타일(프라이머리 컬러, 레디우스8px, 폰트흰색 16px)
+.btn {
+    @include flex-layout($d: flex, $ai: center, $jc: center, $fd: row, $fw: nowrap);
+    gap: 0.4rem;
+    padding: 0.6rem 1.2rem;
+    @include font($fw: 500, $fz: 1.4rem, $color: var(--#{$prefix}gray-0), $lh: 100%, $ta: center);
+    letter-spacing: -0.04rem;
+    background-color: var(--#{$prefix}mh-40);
+    border: 1px solid var(--#{$prefix}mh-30);
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: background-color $transition-base;
+    &:hover {
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+    }
+    &.fit {
+        width: fit-content;
+        flex: 0 0 fit-content;
+    }
+    &:disabled {
+        background-color: var(--#{$prefix}gray-40) !important;
+        border: 1px solid var(--#{$prefix}gray-40) !important;
+        cursor: not-allowed !important;
+        &:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+    }
+}
+
+.btn-primary {
+    &:hover {
+        color: var(--#{$prefix}gray-0);
+        background-color: var(--#{$prefix}mh-60);
+        border: 1px solid var(--#{$prefix}mh-50);
+    }
+}
+// .btn-primary {
+//     &:hover {
+//         color: var(--#{$prefix}gray-0);
+//         background-color: var(--#{$prefix}primary-60);
+//         border: 1px solid var(--#{$prefix}primary-70);
+//     }
+// }
+
+.btn-gray {
+    color: var(--#{$prefix}gray-90);
+    border: 1px solid var(--#{$prefix}gray-40);
+    background: var(--#{$prefix}gray-20);
+    &:hover {
+        color: var(--#{$prefix}gray-90);
+        border: 1px solid var(--#{$prefix}gray-50);
+        background: var(--#{$prefix}gray-30);
+    }
+}
+
+.btn-gray-dark {
+    color: var(--#{$prefix}gray-70);
+    background-color: var(--#{$prefix}gray-26);
+    border: 1px solid var(--#{$prefix}gray-60);
+}
+
+.btn-light {
+    color: var(--#{$prefix}mh-50);
+    background-color: var(--#{$prefix}mh-2);
+    border: 1px solid var(--#{$prefix}mh-10);
+    &:hover {
+        background-color: var(--#{$prefix}mh-50);
+        border-color: var(--#{$prefix}mh-65);
+        color: var(--#{$prefix}gray-0);
+    }
+}
+
+.btn-red {
+    color: var(--#{$prefix}gray-0);
+    background-color: var(--#{$prefix}red-50);
+    border: 1px solid var(--#{$prefix}red-70);
+}
+
+// 버튼 내 아이콘
+.btn-icon {
+    display: inline-block;
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-right: 0.4rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.btn-orange {
+    color: var(--#{$prefix}orange-0);
+    border: 1px solid var(--#{$prefix}orange-60);
+    background: var(--#{$prefix}orange-50);
+}
+
+// 아웃라인 버튼
+.btn-outline-mh {
+    color: var(--#{$prefix}mh-50);
+    background-color: var(--#{$prefix}gray-0);
+    border: 1px solid var(--#{$prefix}mh-40);
+
+    &:hover {
+        color: var(--#{$prefix}gray-0);
+        background-color: var(--#{$prefix}mh-50);
+    }
+}
+
+.btn-outline-orange {
+    color: var(--#{$prefix}orange-50);
+    background-color: var(--#{$prefix}gray-0);
+    border: 1px solid var(--#{$prefix}orange-40);
+
+    &:hover {
+        color: var(--#{$prefix}gray-0);
+        background-color: var(--#{$prefix}orange-50);
+    }
+}
+
+// 버튼 사이즈
+.btn-xsm {
+    padding: 0.4rem 0.6rem;
+    font-size: 1.4rem;
+    border-radius: 0.4rem;
+}
+
+.btn-sm {
+    padding: 0.6rem 1.2rem;
+    font-size: 1.4rem;
+    border-radius: 0.6rem;
+}
+
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.8rem;
+}
+

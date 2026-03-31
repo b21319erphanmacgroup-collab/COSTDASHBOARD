@@ -1,0 +1,58 @@
+//베리어블 변수파일
+@use "../component/_variables" as *;
+
+// 드래그 방지 및 허용 스타일을 위한 mixin
+@mixin user-select($select: none) {
+	-webkit-user-select: $select;
+	-moz-user-select: $select;
+	-ms-user-select: $select;
+	user-select: $select;
+}
+
+//flex layout 플렉스 레이아웃
+@mixin flex-layout($d: flex, $ai: flex-start, $jc: flex-start, $fd: row, $fw: nowrap) {
+	display: $d;
+	align-items: $ai;
+	justify-content: $jc;
+	flex-direction: $fd;
+	flex-wrap: $fw;
+}
+
+//position 포지션
+@mixin position($p: absolute, $t: null, $b: null, $l: null, $r: null) {
+	position: $p;
+	top: $t;
+	bottom: $b;
+	left: $l;
+	right: $r;
+}
+
+//font 설정
+@mixin font($fw: null, $lh: null, $fz: null, $color: null, $ta: null) {
+	font-weight: $fw;
+	line-height: $lh;
+	font-size: $fz;
+	color: $color;
+	text-align: $ta;
+}
+
+//라운드박스 스타일 round box style
+
+@mixin box-style($border: null, $radius: null, $bg-color: null, $shadow: null) {
+	border: $border;
+	border-radius: $radius;
+	background-color: $bg-color;
+	box-shadow: $shadow;
+}
+
+//pseudo element setting
+@mixin pseudo($c: null) {
+	content: "" + $c + "";
+}
+
+//말 줄임 text ellipsis
+@mixin ellipsis {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}

@@ -1,0 +1,19 @@
+//푸터 컴포넌트 스타일
+
+@use "../component/variables" as *;
+@use "../mixins/utils" as *;
+
+// 푸터 스타일
+footer {
+    @include flex-layout($d: flex, $ai: center, $jc: flex-end, $fd: row, $fw: nowrap);
+    padding: 0 1.2rem;
+    // 공통 구분선
+    .divider {
+        @include font($fw: 400, $lh: 100%, $fz: 1.2rem, $color: var(--#{$prefix}gray-60));
+        margin: 0 0.8rem;
+    }
+    p{
+        @include font($fw: 400, $lh: 100%, $fz: 1rem, $color: var(--#{$prefix}gray-80));
+        letter-spacing: 0.04rem;
+    }
+}

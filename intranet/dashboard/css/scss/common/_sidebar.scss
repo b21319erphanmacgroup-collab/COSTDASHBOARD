@@ -1,0 +1,555 @@
+// 사이드바 컴포넌트 스타일
+@use "../component/variables" as *;
+@use "../mixins/utils" as *;
+
+$side-empty-area:1.2rem;//사이드의 패딩 혹은 마진
+
+// ===================================================
+// 1. 기본 고정 사이드바 (sidebar-default)
+// ===================================================
+.sidebar-container {
+    ul{
+        padding-top:0;//개발소스에 있는거 없애는 용도
+    }
+    width:var(--aside-width);
+    .sidebar {
+        @include position($p: relative);
+        @include flex-layout($d: flex, $ai: center, $jc: space-between, $fd:column);        
+        width:100%;
+        height:100%;
+        .brand {
+            position:relative;
+            @include flex-layout($d: flex, $ai: center, $jc: space-between);
+            width:100%;
+            height: var(--page-header-height);
+            padding: 0.6rem $side-empty-area;
+            border-bottom: 1px solid  rgba(255, 255, 255, 0.14);
+            cursor: pointer;
+            &::after{
+                content:'';
+                @include position($b:0, $l:0);
+                width:100%;
+                height: 0.1rem;
+                background-color:rgba(0, 0, 0, 0.6);
+            }
+        }
+        .nav-wrap {
+            @include flex-layout($d: flex, $fd: column);
+            @include position($p: relative);
+            width:100%;
+            height: calc(100% - var(--page-header-height));
+            .nav-container {
+                width: 100%;
+                padding: 0.6rem 0;
+                flex: 1;
+                min-height: 0;
+                overflow-y: auto;
+
+                //스크롤바
+
+                &::-webkit-scrollbar {
+                    width: 0.4rem !important;
+                }
+
+                &::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: rgba(255, 255, 255, 0.45);
+                    border: none;
+                    border-radius: 0.3rem;
+
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.7);
+                    }
+                }
+
+                &::-webkit-scrollbar-button {
+                    background-size: 4px 4px !important;
+                    border-radius: 0.1rem;
+                    background-color: rgba(255, 255, 255, 0.25);
+
+                }
+
+                .nav-menu {
+                    @include flex-layout($d: flex, $fd: column);
+                    gap: 0.4rem;
+                    padding:0; 
+                    //전체프로젝트 통합, 팀/개인별 분석 따로 분리안해놔서 강제로 조정
+                    & > .nav-item.link{
+                        width:calc(100% - $side-empty-area - $side-empty-area);
+                        margin-left:$side-empty-area;
+                        margin-right:$side-empty-area;
+                    }
+                }
+
+                /* ===============================
+                1 Depth (공통)
+                =============================== */
+                .nav-item {
+                    @include flex-layout($d: flex, $ai: center, $jc: space-between);
+                    @include position($p: relative);
+                    width: 100%;
+                    padding: 0.6rem;
+                    cursor: pointer;
+                    border-radius: 0.4rem;
+                    transition: background-color 0.2s ease;
+
+                    .nav-text {
+                        @include flex-layout($d: flex, $fd: row, $ai: center);
+                        gap: 0.6rem;
+
+                        .nav-icon {
+                            @include position($p: relative, $t: 2.5px);
+
+                            img {
+                                transition: filter 0.2s ease;
+                            }
+                        }
+
+                        .nav-name {
+                            @include font($fw: 500, $fz: 1.4rem, $color: var(--#{$prefix}mh-5));
+                            transition: color 0.2s ease;
+                        }
+                    }
+
+                    .nav-arrow {
+                        transition: transform 0.2s ease;
+
+                        img {
+                            transition: filter 0.2s ease;
+                        }
+                    }
+                }
+
+                /* ===============================
+                1 Depth - 링크형 (하위메뉴 없음)
+                =============================== */
+                .nav-item.link {
+                    &.active:not(.has-submenu),
+                    &:hover {
+                        background-color: var(--#{$prefix}mh-5);
+
+                        .nav-name {
+                            @include font($fw: 600, $color: var(--#{$prefix}mh-50));
+                        }
+                        .nav-icon img {
+                            filter: brightness(0) saturate(1135%) invert(48%) sepia(93%) saturate(2550%) hue-rotate(206deg) brightness(96%) contrast(96%);
+                            /* mh-50 */
+                        }
+                        .nav-arrow img {
+                            filter: brightness(0) saturate(1335%) invert(58%) sepia(29%) saturate(2550%) hue-rotate(206deg) brightness(85%) contrast(90%);
+                            /* mh-75 톤 */
+                        }
+                    }
+                }
+
+                /* ===================================================
+                NAV MENU WRAP
+                =================================================== */
+                .nav-menu-wrap {
+                    position:relative;
+                    padding:0.6rem $side-empty-area;
+                    overflow: visible;
+                    width: 100%;
+                    height: auto;
+                    border-top:1px solid rgba(255, 255, 255, 0.14);
+                    &::before{
+                        content:'';
+                        @include position($t:-0.2rem, $l:0);
+                        width:100%;
+                        height: 0.1rem;
+                        background-color: rgba(0, 0, 0, 0.6);
+                    }
+
+
+
+                    /* ===============================
+                        1 Depth - 링크형 (하위메뉴 없음)
+                    =============================== */
+                    .nav-item{
+                        padding-left:0;
+                        padding-right:0;
+                    }
+                    .nav-item.link:not(.has-submenu) {
+                        &:hover {
+                            background-color: var(--#{$prefix}mh-5);
+                        }
+
+                        &.active {
+                            background-color: var(--#{$prefix}mh-10) !important;
+                            .nav-name {
+                                @include font($fw: 600, $color: var(--#{$prefix}mh-50) !important);
+                            }
+                        }
+
+                        .nav-name {
+                            @include font($fw: 500, $color: var(--#{$prefix}mh-8));
+                        }
+
+                        .nav-icon img {
+                            filter: none;
+                        }
+
+                        &.active,
+                        &:hover {
+                            .nav-icon img {
+                                filter: brightness(0) saturate(1135%) invert(48%) sepia(93%) saturate(2550%) hue-rotate(206deg) brightness(96%) contrast(96%);
+                            }
+                            .nav-arrow img {
+                                filter: brightness(0) saturate(1335%) invert(58%) sepia(29%) saturate(2550%) hue-rotate(206deg) brightness(85%) contrast(90%);
+                            }
+                        }
+                    }
+                    /* ===============================
+                        1 Depth Active 공통 (link + submenu)
+                    =============================== */
+
+                    .nav-item.active {
+                        background-color: var(--#{$prefix}mh-2) !important;
+
+                        .nav-name {
+                            @include font($fw: 600, $color: var(--#{$prefix}gray-90) !important);
+                        }
+
+                        .nav-icon img {
+                            filter: brightness(0) saturate(1135%) invert(48%) sepia(93%) saturate(2550%) hue-rotate(206deg) brightness(96%) contrast(96%);
+                        }
+
+                        .nav-arrow img {
+                            filter: brightness(0) saturate(1335%) invert(58%) sepia(29%) saturate(2550%) hue-rotate(206deg) brightness(85%) contrast(90%);
+                        }
+                    }
+                    /* ===============================
+                        1 Depth - 하위메뉴 있음
+                    =============================== */
+                    .nav-item.has-submenu {
+                        @include position($p: relative);
+                        flex-wrap: wrap;
+
+                        .nav-text {
+                            @include flex-layout($d: flex, $ai: center);
+                            gap: 0.6rem;
+                        }
+
+                        .nav-arrow {
+                            transition: transform 0.2s ease;
+                        }
+
+                        .nav-name {
+                            @include font($fw: 500, $color: var(--#{$prefix}mh-8));
+                        }
+
+                        &.open {
+                            .nav-name {
+                                @include font($fw: 600, $color: var(--#{$prefix}gray-0));
+                            }
+
+                            .nav-icon img {
+                                filter: invert(41%) sepia(94%) saturate(4051%) hue-rotate(218deg) brightness(100%) contrast(109%);
+                            }
+
+                            > .sub-menu.depth-2 {
+                                display: block;
+                            }
+                        }
+                    }
+
+                    /* ===============================
+                        Sub Menu 공통 (2, 3, 4 Depth)
+                    =============================== */
+                    .sub-menu {
+                        display: none;
+                        width: 100%;
+                        margin-top: 0.8rem;
+
+                        .sub-item {
+                            @include position($p: relative);
+
+                            .sub-item-inner {
+                                @include flex-layout($d: flex, $ai: center, $jc: space-between);
+                                padding: 0.6rem 1.2rem;
+                                border-radius: 0.4rem;
+                                cursor: pointer;
+                                @include font($fw: 500, $fz: 1.3rem, $color: var(--#{$prefix}mh-8));
+                                transition:
+                                    background 0.1s,
+                                    color 0.1s;
+                                position: relative;
+                                z-index: 1;
+
+                                &:hover {
+                                    background: var(--#{$prefix}mh-5) !important;
+                                    color: var(--#{$prefix}gray-90) !important;
+                                }
+                            }
+
+                            /* 하위 메뉴가 열린 상태 스타일 */
+                            &.has-submenu.open {
+                                > .sub-item-inner {
+                                    background: var(--#{$prefix}gray-10);
+                                    @include font($fw: 600, $color: var(--#{$prefix}gray-90) !important);
+
+                                    .nav-arrow {
+                                        transform: rotate(90deg);
+                                    }
+                                }
+                                > .sub-menu {
+                                    display: block;
+                                }
+                            }
+
+                            /* Active 상태일 때의 강조 디자인 */
+                            &.active {
+                                > .sub-item-inner {
+                                    background: var(--#{$prefix}mh-10) !important;
+                                    color: var(--#{$prefix}gray-90) !important;
+                                    @include font($fw: 600);
+                                }
+
+                                /* LVL 4이거나, LVL 3이면서 실제로 하위 li가 없는 경우 바 표시 
+                                (tpl 구조상 빈 ul이 항상 존재하므로 :has(.sub-menu li)로 실제 존재여부 체크)
+                                */
+                                &:not(:has(.sub-menu li)) {
+                                    &::before {
+                                        content: "" !important;
+                                        display: block !important;
+                                        @include position($p: absolute, $t: 0.3rem, $b: 0.3rem, $l: 0);
+                                        width: 0.3rem;
+                                        background: var(--#{$prefix}mh-50) !important;
+                                        border-radius: 0 0.3rem 0.3rem 0;
+                                        z-index: 10 !important;
+                                    }
+                                }
+                            }
+
+                            /* 하위 메뉴가 비어있을 때 화살표 숨김 */
+                            &:not(:has(.sub-menu li)) {
+                                .nav-arrow {
+                                    display: none !important;
+                                }
+                                > .sub-menu {
+                                    display: none !important;
+                                    margin: 0 !important;
+                                    padding: 0 !important;
+                                }
+                            }
+                        }
+                    }
+
+                    /* ===============================
+                        Depth 별 특화 설정
+                    =============================== */
+                    .sub-menu.depth-3 {
+                        margin-top: 0.1rem;
+                        padding-left: 0.6rem;
+                        background: var(--#{$prefix}gray-0);
+                        border-radius: 0.4rem;
+
+                        .sub-item-inner {
+                            padding: 0.5rem 1rem;
+                            color: var(--#{$prefix}gray-90);
+                        }
+                    }
+
+                    .sub-menu.depth-4 {
+                        margin-top: 0.1rem;
+                        padding-left: 1.2rem;
+                        background: transparent;
+
+                        .sub-item-inner {
+                            padding: 0.5rem 1rem;
+                            @include font($fz: 1.2rem);
+                        }
+                    }
+                }
+
+                /* ===============================
+                Tab Button
+                =============================== */
+                .tab-button-wrap {
+                    @include flex-layout($d: flex, $fw: wrap, $fd: row);
+                    width: 100%;
+                    gap: 0.4rem;
+                    padding: 1.2rem $side-empty-area;
+
+                    .tab-btn {
+                        position:relative;
+                        color: var(--#{$prefix}gray-50);
+                        background-color: var(--#{$prefix}mh-2);
+                        border: 1px solid var(--#{$prefix}mh-10);
+                        opacity: 0.6;
+                        transition: opacity 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+                        &.active,
+                        &:hover {
+                            background-color: var(--#{$prefix}mh-50);
+                            border-color: var(--#{$prefix}mh-65);
+                            color: var(--#{$prefix}gray-0);
+                            opacity: 1;
+                            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+                        }
+
+                        &:hover {
+                            transform: translateY(-3px);
+                            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+                        }
+
+                        // 툴팁 공통
+                        &::after {
+                            position: absolute;
+                            top: calc(100% + 0.6rem);
+                            left: 50%;
+                            transform: translateX(-50%) translateY(-0.4rem);
+                            padding: 0.3rem 0.7rem;
+                            background-color: var(--#{$prefix}gray-90);
+                            border-radius: 0.3rem;
+                            @include font($fw: 500, $fz: 1.1rem, $color: var(--#{$prefix}gray-0));
+                            white-space: nowrap;
+                            opacity: 0;
+                            pointer-events: none;
+                            transition: opacity 0.15s ease, transform 0.15s ease;
+                            z-index: 100;
+                        }
+
+                        &:hover::after {
+                            opacity: 1;
+                            transform: translateX(-50%) translateY(0);
+                        }
+                    }
+
+                    // 툴팁 텍스트
+                    .tab-btn[container_id="GPD"]::after { content: '총괄기획실'; }
+                    .tab-btn[container_id="TDC"]::after { content: '기술개발센터'; }
+
+                    .box {
+                        padding: 0.3rem;
+                        height: 2.7rem;
+                        //border-radius: 0.8rem;
+                    }
+
+                    .calc {
+                        width: calc((100% - 54px) / 2);
+
+                        &:first-child {
+                            background: transparent;
+                            border: none;
+                        }
+                    }
+                }
+
+                /* ===============================
+                Search
+                =============================== */
+                .nav-search {
+                    width: 100%;
+                    padding: 0 $side-empty-area 0.8rem $side-empty-area;
+
+                    .nav-search-form {
+                        width: 100%;
+                    }
+
+                    .nav-search-box {
+                        @include flex-layout($d: flex, $ai: center);
+                        padding: 0.6rem;
+                        background: #293760;
+                        border: 1px solid #606984;
+                        border-radius: 0.3rem;
+                        box-shadow: 0 8px 28px rgba(1, 5, 17, 0.3);
+                    }
+
+                    .nav-search-icon {
+                        @include flex-layout($d: flex, $jc: center, $ai: center);
+                        width: 2rem;
+                        height: 2rem;
+                        margin-right: 0.3rem;
+
+                        img {
+                            width: 1.4rem;
+                            height: 1.4rem;
+                        }
+                    }
+
+                    .nav-search-input {
+                        flex: 1;
+                        border: none;
+                        background: transparent;
+                        @include font($fw: 500, $fz: 1.3rem, $color: var(--#{$prefix}gray-0));
+
+                        &::placeholder {
+                            color: var(--#{$prefix}mh-10);
+                        }
+
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+                }
+            }
+
+            .footer-container {
+                $icon-size:3.2rem;
+                position:relative;
+                @include flex-layout($d: flex, $fw: wrap, $fd: row, $jc: space-between, $ai: center);
+                width: 100%;
+                padding: 0.6rem $side-empty-area;
+                border-top: 1px solid rgba(255, 255, 255, 0.14);
+                flex-shrink: 0;
+                &::after{
+                    content:'';
+                    @include position($t:-0.2rem, $l:0);
+                    width:100%;
+                    height: 0.1rem;
+                    background-color: rgba(0, 0, 0, 0.6);
+                }
+
+                .left-wrap {
+                    width:calc(100% - $icon-size - 0.4rem);
+                    height: $icon-size;
+                    padding-top:0.2rem;//그냥 예쁘게 보일려고 넣음
+                    .user-info{
+                        @include flex-layout($d: flex, $fw: nowrap, $fd: column, $jc: flex-start, $ai: flex-start);
+                        row-gap: 0.4rem;
+                        width:100%;
+                    }
+                    .user-name,
+                    .user-role {
+                        display: block;
+                        width: 100%;
+                        @include font($fw: 600, $lh: 100%, $fz: 1.3rem, $color: var(--#{$prefix}gray-0));
+                        @include ellipsis;
+                    }
+                    .company-name {
+                        width: 100%;
+                        @include font($fw: 400, $lh: 100%, $fz: 1.2rem, $color: var(--#{$prefix}mh-15));
+                        @include ellipsis;
+                    }
+                }
+                .right-wrap {                    
+                    width:$icon-size;
+                    height:$icon-size;
+                    padding: 0.7rem;
+                    background-color: #31406e;
+                    border: 1px solid #0c142d;
+                    border-radius: 0.3rem;
+                    cursor: pointer;
+
+                    &:active,
+                    &:hover {
+                        background-color: var(--#{$prefix}mh-8);
+                        border: 1px solid var(--#{$prefix}mh-20);
+
+                        .logout {
+                            filter: brightness(0.2);
+                        }
+                    }
+
+                    .logout {
+                        transition: filter 0.2s ease; // 부드럽게 바뀌게
+                    }
+                }
+            }
+        }
+    }
+}

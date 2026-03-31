@@ -1,0 +1,54 @@
+
+//이곳은 사이즈입니다
+@for $i from 1 through 100 {
+    .w-#{$i} {
+        width: #{$i}px !important;
+    }
+    .h-#{$i} {
+        height: #{$i}px !important;
+    }
+    .perW-#{$i} {
+        width: #{$i}+ "%" !important;
+    }
+    .perH-#{$i} {
+        height: #{$i}+ "%" !important;
+    }
+    .ml-#{$i} {
+        margin-left: #{$i}px !important;
+    }
+    .mr-#{$i} {
+        margin-right: #{$i}px !important;
+    }
+    .mt-#{$i} {
+        margin-top: #{$i}px !important;
+    }
+    .mb-#{$i} {
+        margin-bottom: #{$i}px !important;
+    }
+    .margin-#{$i} {
+        margin: #{$i}px !important;
+    }
+    .padding-#{$i} {
+        padding: #{$i}px !important;
+    }
+    .pl-#{$i} {
+        padding-left: #{$i}px !important;
+    }
+    .pr-#{$i} {
+        padding-right: #{$i}px !important;
+    }
+    .pt-#{$i} {
+        padding-top: #{$i}px !important;
+    }
+    .pb-#{$i} {
+        padding-bottom: #{$i}px !important;
+    }
+    .row-gap-#{$i} {
+        row-gap: #{$i}px !important;
+    }
+    .column-gap-#{$i} {
+        column-gap: #{$i}px !important;
+    }
+}
+
+

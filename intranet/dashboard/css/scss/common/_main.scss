@@ -1,0 +1,2301 @@
+// 메인 컴포넌트 스타일
+@use "../component/variables" as *;
+@use "../mixins/utils" as *;
+
+// ===================================================
+// 메인 패널 (main-container)
+// ===================================================
+.main-container {
+    @include flex-layout($d: flex, $fd: column,$ai: stretch);
+    width: calc(100% - var(--aside-width));
+    height: 100vh;
+    overflow: hidden;
+    background: #f8fafc;
+
+    .page-header {
+        @include flex-layout($d: flex, $jc: space-between, $ai: center);
+        flex-shrink: 0;
+        width: 100%;
+        height: var(--page-header-height);
+        padding: 0.95rem 1.2rem;
+        background-color: var(--#{$prefix}gray-0);
+        border-bottom: 1px solid var(--#{$prefix}gray-20);
+
+        &__left {
+            @include position($p: relative);
+            @include flex-layout($d: flex, $ai: center);
+            gap: 1.2rem;
+
+            .date-picker-container {
+                @include flex-layout($d: flex, $ai: center);
+                gap: 0.4rem;
+
+                .date-label,
+                .date-value {
+                    @include font($fw: 500, $fz: 1.2rem, $color: var(--#{$prefix}gray-80));
+                }
+
+                .custom-date-btn {
+                    @include flex-layout($d: flex, $ai: center);
+                    gap: 0.4rem;
+                    padding: 0.25rem 1rem;
+                    margin-right: 0.8rem;
+                    border: 1px solid var(--#{$prefix}gray-30);
+                    background: var(--#{$prefix}gray-20);
+                    cursor: pointer;
+                }
+            }
+        }
+
+        //조회버튼
+
+        &__search-btn {
+            @include flex-layout($d: flex, $ai: center);
+            gap: 0.6rem;
+            padding: 0.5rem 1.2rem 0.6rem 1.2rem;
+            border-radius: 0.3rem;
+            background-color: var(--#{$prefix}mh-50);
+            border: 1px solid var(--#{$prefix}mh-60);
+            cursor: pointer;
+
+            span {
+                @include font($fw: 500, $lh: 100%, $fz: 1.4rem, $color: var(--#{$prefix}gray-0));
+            }
+
+            img {
+                width: 1.2rem;
+                height: 1.2rem;
+            }
+
+            &:hover {
+                background-color: var(--#{$prefix}mh-65);
+                border: 1px solid var(--#{$prefix}mh-75);
+            }
+        }
+
+        /* 이력관리 모달 시작 */
+        .history-modal {
+            @include position($p: absolute, $t: calc(100% + 0.6rem), $l: 0);
+            display: none;
+            width: 42rem;
+            background: #fff;
+            border: 1px solid var(--#{$prefix}gray-40);
+            border-radius: 0.6rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            z-index: 5;
+        }
+
+        /* 헤더 */
+        .history-modal__header {
+            @include flex-layout($d: flex, $ai: center, $jc: space-between);
+            background: #6f6f6f;
+            padding: 0.8rem 1.2rem;
+            border-radius: 0.6rem 0.6rem 0 0;
+            @include font($fw: 600, $fz: 1.4rem, $color: var(--#{$prefix}gray-0));
+
+            button {
+                background: none;
+                border: 0;
+                @include font($fw: 600, $lh: 1, $fz: 2rem, $color: var(--#{$prefix}gray-0));
+                cursor: pointer;
+            }
+        }
+
+        /* 본문 */
+        .history-modal__body {
+            overflow: auto;
+            height: 26rem;
+            padding: 1.2rem;
+        }
+
+        /* 테이블 */
+        .history-table {
+            @include flex-layout($d: flex, $fd: column);
+            gap: 0.4rem;
+        }
+
+        .history-table__head {
+            @include flex-layout($d: grid, $ai: stretch);
+            grid-template-columns: 10rem 1fr;
+            width: 100%;
+            padding: 0.4rem 0.5rem;
+            background: var(--#{$prefix}accent-5);
+            border-top: 2px solid var(--#{$prefix}accent-30);
+            border-bottom: 2px solid var(--#{$prefix}accent-30);
+            margin-bottom: 0.4rem;
+            @include font($fw: 600, $color: var(--#{$prefix}accent-70));
+        }
+
+        .history-table__row {
+            @include flex-layout($d: grid, $ai: stretch);
+            grid-template-columns: 10rem 1fr;
+            padding: 0.6rem 0;
+            @include font($fz: 1.3rem, $color: var(--#{$prefix}gray-90));
+            &:nth-child(odd) {
+                margin-left: 4px;
+            }
+            &:nth-child(even) {
+                width: 100%;
+                background: var(--#{$prefix}gray-5);
+                border-radius: 0.4rem;
+                padding-left: 0.4rem;
+                padding-right: 0.4rem;
+            }
+        }
+
+        /* 아이콘 */
+        .tool-tip-history {
+            width: 1.6rem;
+            height: 1.6rem;
+            margin-left: 0.4rem;
+            cursor: pointer;
+        }
+        /* //이력관리 끝 */
+
+        &__title {
+            @include flex-layout($d: flex, $ai: center);
+            gap: 0;
+            @include font($fw: 700, $fz: 1.8rem, $color: var(--#{$prefix}gray-90));
+        }
+        .br {
+            width: 0.3rem;
+            height: 2rem;
+            background: var(--hm-gray-38);
+        }
+        &__calendar-btn {
+            @include flex-layout($d: flex, $ai: center);
+            gap: 0.6rem;
+            padding: 0.25rem 1rem;
+            border: 1px solid var(--#{$prefix}gray-30);
+            cursor: pointer;
+
+            .calendar-text {
+                @include font($fw: 600, $fz: 1.4rem, $color: var(--#{$prefix}gray-90));
+            }
+
+            &:hover {
+                .calendar-text {
+                }
+            }
+        }
+
+        &__right {
+            @include flex-layout($d: flex, $ai: center);
+            gap: 1.2rem;
+        }
+
+        // [권한 설정 모달 시작]
+
+        // 모달 오버레이
+        .modal-overlay {
+            @include position(fixed, 0, 0, 0, 0);
+            @include flex-layout($d: flex, $ai: center, $jc: center);
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 11;
+            display: none;
+
+            &.is-active {
+                @include flex-layout($d: flex, $ai: center, $jc: center, $fd: row, $fw: nowrap);
+            }
+        }
+
+        // 모달 컨텐츠 메인
+        .modal-content {
+            overflow: hidden;
+            width: 80rem;
+            // overlay가 flex center로 가운데 정렬하므로 position/transform 불필요
+            // position: relative + top/left 50% + transform translate는 overlay와 충돌
+            background: var(--#{$prefix}gray-0);
+            border-radius: 1.2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+            // 헤더 및 탭 섹션
+            .modal-header {
+                @include position($p: relative);
+                @include flex-layout($d: flex, $ai: center, $jc: space-between);
+                border-bottom: 1px solid var(--#{$prefix}gray-26);
+
+                .tab-list {
+                    @include flex-layout($d: flex);
+                    list-style: none;
+
+                    li {
+                        padding: 0.8rem 1.2rem;
+                        @include font($fw: 700, $lh: 1.2, $fz: 1.5rem, $color: var(--#{$prefix}gray-60));
+                        border-bottom: 3px solid transparent;
+                        cursor: pointer;
+
+                        &.active {
+                            color: var(--#{$prefix}gray-90);
+                            border-bottom-color: var(--#{$prefix}mh-50);
+                        }
+                    }
+                }
+
+                .modal-btn-wrap {
+                    @include flex-layout($d: flex, $ai: center);
+                    gap: 1.2rem;
+                    padding-right: 1.2rem;
+
+                    .modal-close-btn {
+                        background: none;
+                        border: none;
+                        cursor: pointer;
+                    }
+
+                    .help-btn {
+                        @include flex-layout($d: flex, $ai: center);
+                        gap: 0.4rem;
+                        padding: 0.5rem 1rem;
+                        background: var(--#{$prefix}gray-0);
+                        border: 1px solid var(--#{$prefix}gray-40);
+                        border-radius: 0.4rem;
+                        @include font($fw: 500, $fz: 1.3rem, $color: var(--#{$prefix}gray-80));
+                        cursor: pointer;
+
+                        img {
+                            width: 1.4rem;
+                        }
+                    }
+                }
+            }
+
+            // 바디 (좌우 분할)
+            .modal-body {
+                @include flex-layout($d: flex);
+                height: 50rem;
+                padding: 0;
+                .user-selection-left {
+                    width: 50%;
+                    height: 50rem;
+                    padding: 0rem 1rem;
+                    border-right: 1px solid var(--#{$prefix}gray-26);
+                    overflow-y: auto;
+
+                    // 검색창만 별도 패딩
+                    .search-box {
+                        @include position(relative);
+                        width: 100%;
+                        padding: 0.8rem 0;
+
+                        .search-icon {
+                            @include flex-layout($d: flex, $ai: center, $jc: center);
+                            @include position($p: absolute, $t: 45%, $l: 1.2rem);
+                            transform: translateY(-30%);
+                            pointer-events: none;
+                            z-index: 1;
+
+                            img {
+                                width: 1.6rem;
+                                height: 1.6rem;
+                                opacity: 0.5;
+                            }
+                        }
+
+                        input[type="search"] {
+                            width: 100%;
+                            height: 4rem;
+                            padding: 0 1.2rem 0 3.6rem;
+                            border: 1px solid #e0e0e0;
+                            border-radius: 0.4rem;
+                            @include font($fw: 500, $lh: 1, $fz: 1.4rem, $color: var(--#{$prefix}gray-80));
+                            outline: none;
+                            transition: border-color 0.2s;
+
+                            &::placeholder {
+                                color: #bbb;
+                            }
+
+                            &:focus {
+                                border-color: #5d56f3;
+                            }
+
+                            &::-webkit-search-cancel-button,
+                            &::-webkit-search-decoration,
+                            &::-webkit-search-results-button,
+                            &::-webkit-search-results-decoration {
+                                display: none;
+                            }
+                        }
+                    }
+
+                    .dept-tree {
+                        // dept-children 토글 대상
+                        .dept-children {
+                            display: block;
+                            width: 100%;
+
+                            &.is-hidden {
+                                display: none;
+                            }
+                        }
+
+                        // 핵심: .dept-node 자체에는 padding: 0
+                        // 배경색과 border는 .dept-node에 주되,
+                        // 실제 내용(team-wrap, dept-name 등)을 감싸는
+                        // .dept-row에 padding을 줘서 색 번짐 방지
+                        .dept-node {
+                            @include flex-layout($d: flex, $ai: flex-start, $jc: flex-start, $fw: wrap);
+                            width: 100%;
+                            // padding: 0 — dept-children이 숨겨도 빈 공간 안 생김
+                            padding: 0;
+                            cursor: pointer;
+
+                            > .dept-children {
+                                flex-basis: 100%;
+                                flex-shrink: 0;
+                            }
+
+                            // .dept-row: 실제 클릭 가능한 한 줄 행 (내부 요소 감싸는 div)
+                            // HTML에서 depth별 한 줄을 .dept-row로 감싸야 함
+                            .dept-row {
+                                @include flex-layout($d: flex, $ai: center, $jc: space-between);
+                                width: 100%;
+                                flex-shrink: 0;
+                            }
+
+                            // 1depth — 진한 보라빛 배경
+                            &.depth-1 {
+                                background: var(--#{$prefix}mh-8);
+                                border-bottom: 1px solid var(--#{$prefix}mh-20);
+
+                                // 패딩은 .dept-row 안에서만
+                                > .dept-row {
+                                    padding: 0.9rem 1rem 0.9rem 1.2rem;
+
+                                    .dept-name {
+                                        @include font($fw: 700, $fz: 1.4rem, $color: var(--#{$prefix}gray-90));
+                                        flex: 1;
+                                    }
+                                }
+                            }
+
+                            // 2depth — 연한 보라빛 배경
+                            &.depth-2 {
+                                background: var(--#{$prefix}mh-5);
+                                border-bottom: 1px solid var(--#{$prefix}mh-15);
+
+                                > .dept-row {
+                                    padding: 0.75rem 1rem 0.75rem 1.2rem;
+
+                                    .team-wrap {
+                                        @include flex-layout($d: flex, $ai: center);
+                                        gap: 0.6rem;
+                                        flex: 1;
+
+                                        .dept-name {
+                                            @include font($fw: 600, $fz: 1.4rem, $color: var(--#{$prefix}gray-90));
+                                            flex: 1;
+
+                                            .member-count {
+                                                @include font($fw: 500, $fz: 1.3rem, $color: var(--#{$prefix}gray-60));
+                                                margin-left: 0.3rem;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            &.is-hidden {
+                                display: none;
+                            }
+                        }
+
+                        // 토글 버튼
+                        .toggle-btn {
+                            background: none;
+                            border: none;
+                            cursor: pointer;
+                            flex-shrink: 0;
+
+                            img {
+                                width: 1.4rem;
+                                transition: transform 0.2s;
+                            }
+
+                            &.is-close img {
+                                transform: rotate(-90deg);
+                            }
+                        }
+
+                        // 체크 버튼
+                        .check-btn {
+                            height: 1.8rem;
+                            background: none;
+                            border: none;
+                            cursor: pointer;
+                            flex-shrink: 0;
+
+                            img {
+                                width: 1.6rem;
+                                display: block;
+                            }
+
+                            &.checked img {
+                                content: url("./../images/common/checkbox-active.svg");
+                            }
+                        }
+
+                        .dept-name {
+                            @include font($fw: 600, $fz: 1.4rem, $ta: left, $color: var(--#{$prefix}gray-90));
+                            flex: 1;
+                        }
+
+                        // 사람 리스트 — 흰 배경
+                        .user-list {
+                            width: 100%;
+                            background: var(--#{$prefix}gray-0);
+
+                            li {
+                                @include position(relative);
+                                @include flex-layout($d: flex, $ai: center);
+                                gap: 1rem;
+                                padding: 0.6rem 1.2rem;
+                                border-top: 1px solid #00000010;
+                                border-bottom: 1px solid #00000010;
+                                transition: background 0.2s;
+                                cursor: pointer;
+
+                                &:last-child {
+                                    border-bottom: none;
+                                }
+
+                                .info {
+                                    flex: 1;
+                                    min-width: 0;
+
+                                    .name {
+                                        @include font($fw: 600, $lh: 1.2, $ta: left, $fz: 1.4rem, $color: var(--#{$prefix}gray-90));
+                                        @include ellipsis;
+
+                                        span {
+                                            @include font($fw: 500, $lh: 1.2, $fz: 1.3rem, $color: var(--#{$prefix}gray-70));
+                                            margin-left: 0.2rem;
+                                        }
+                                    }
+
+                                    .company-name {
+                                        @include flex-layout($d: flex, $ai: center, $jc: flex-start);
+                                        gap: 0.2rem;
+                                        @include font($fw: 500, $fz: 1.1rem, $color: var(--#{$prefix}gray-60));
+
+                                        img {
+                                            height: 1rem;
+                                            width: auto;
+                                        }
+                                    }
+                                }
+
+                                &:hover {
+                                    background: var(--#{$prefix}mh-2);
+
+                                    .add-btn {
+                                        display: block;
+                                    }
+
+                                    .thumb {
+                                        margin-left: 2rem;
+                                    }
+
+                                    .info .name {
+                                        color: var(--#{$prefix}mh-50);
+
+                                        span {
+                                            color: inherit;
+                                        }
+                                    }
+                                }
+
+                                &.active {
+                                    background: var(--#{$prefix}gray-10);
+                                }
+
+                                .add-btn {
+                                    @include position($p: absolute, $l: 0.8rem, $t: 50%);
+                                    transform: translateY(-50%);
+                                    display: none;
+                                    height: 1.8rem;
+                                    background: none;
+                                    border: none;
+                                    cursor: pointer;
+
+                                    img {
+                                        width: 1.8rem;
+                                        display: block;
+                                    }
+                                }
+
+                                .thumb {
+                                    width: 3.2rem;
+                                    height: 3.2rem;
+                                    border-radius: 50%;
+                                    flex-shrink: 0;
+                                    transition: margin-left 0.2s;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .user-selection-right {
+                    overflow-y: auto;
+                    width: 50%;
+                    height: 50rem;
+                    background: var(--#{$prefix}gray-0);
+
+                    .selected-list {
+                        li {
+                            @include position($p: relative);
+                            @include flex-layout($d: flex, $ai: center);
+                            gap: 1rem;
+                            padding: 0.6rem 0.8rem;
+                            border-top: 1px solid var(--#{$prefix}gray-20);
+                            border-bottom: 1px solid var(--#{$prefix}gray-20);
+                            transition: background 0.2s;
+                            cursor: pointer;
+
+                            &:hover {
+                                background: var(--#{$prefix}gray-10);
+
+                                .remove-btn {
+                                    opacity: 1;
+                                    pointer-events: auto;
+                                }
+
+                                .selected-list-wrap {
+                                    padding-left: 2.4rem;
+                                }
+                            }
+
+                            .selected-list-wrap {
+                                @include position($p: relative);
+                                @include flex-layout($d: flex, $ai: center);
+                                width: 100%;
+                                gap: 0.8rem;
+                                padding-left: 0;
+                                transition: padding-left 0.2s;
+
+                                img {
+                                    flex-shrink: 0;
+                                    width: 3.2rem;
+                                    height: 3.2rem;
+                                    border-radius: 50%;
+                                }
+
+                                .info {
+                                    flex: 1;
+                                    min-width: 0;
+
+                                    .name {
+                                        @include font($fw: 600, $lh: 1.2, $ta: left, $fz: 1.4rem, $color: var(--#{$prefix}gray-90));
+                                        @include ellipsis;
+
+                                        span {
+                                            @include font($fw: 500, $lh: 1.2, $fz: 1.3rem, $color: var(--#{$prefix}gray-70));
+                                            margin-left: 0.2rem;
+                                        }
+                                    }
+
+                                    .company-name {
+                                        @include flex-layout($d: flex, $ai: center, $jc: flex-start);
+                                        gap: 0.2rem;
+                                        @include font($fw: 500, $fz: 1.1rem, $color: var(--#{$prefix}gray-60));
+
+                                        img {
+                                            width: auto;
+                                            height: 1rem;
+                                            border-radius: 0;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .remove-btn {
+                                @include position($p: absolute, $l: 0, $t: 50%);
+                                transform: translateY(-50%);
+                                @include flex-layout($d: flex, $ai: center, $jc: center);
+                                width: 2rem;
+                                height: 2rem;
+                                background: none;
+                                border: none;
+                                opacity: 0;
+                                pointer-events: none;
+                                transition: opacity 0.15s;
+                                cursor: pointer;
+
+                                img {
+                                    width: 1.6rem;
+                                    border-radius: 0 !important;
+                                }
+                            }
+
+                            .badge {
+                                flex-shrink: 0;
+                                padding: 0.1rem 0.5rem;
+                                border-radius: 0.3rem;
+                                @include font($fw: 500, $fz: 1.3rem);
+
+                                &.general {
+                                    background: #f1f9ff;
+                                    border: 1px solid #0d8df2;
+                                    color: #0d8df2;
+                                }
+
+                                &.overall {
+                                    background: #eee7fa;
+                                    border: 1px solid #6d3dc2;
+                                    color: #6d3dc2;
+                                }
+
+                                &.personnel {
+                                    background: #fcedff;
+                                    border: 1px solid #b92ed1;
+                                    color: #b92ed1;
+                                }
+
+                                &.integrated {
+                                    background: #ffedf3;
+                                    border: 1px solid #e8175e;
+                                    color: #e8175e;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 하단 버튼
+            .modal-footer {
+                @include flex-layout($d: flex, $ai: center, $jc: center);
+                gap: 0.8rem;
+                padding: 3rem 1.2rem;
+                border-top: 1px solid #e0e0e0;
+
+                .btn {
+                    min-width: 12rem;
+                    padding: 1.2rem 0;
+                    border-radius: 0.4rem;
+                    @include font($fw: 600, $lh: 1, $fz: 1.4rem, $color: var(--#{$prefix}gray-80));
+                    cursor: pointer;
+
+                    &-white {
+                        background: var(--#{$prefix}gray-5);
+                        border: 1px solid var(--#{$prefix}gray-30);
+                        color: var(--#{$prefix}gray-80);
+
+                        &:hover,
+                        &.active {
+                            background: var(--#{$prefix}gray-30);
+                            border: 1px solid var(--#{$prefix}gray-50);
+                        }
+                    }
+
+                    &-primary {
+                        background: var(--#{$prefix}mh-50);
+                        border: none;
+                        color: var(--#{$prefix}gray-0);
+
+                        &:hover,
+                        &.active {
+                            background: var(--#{$prefix}mh-60);
+                        }
+                    }
+                }
+            }
+        }
+        // 권한 설정 모달 끝
+
+        // 권한 설정 저장/취소 확인 모달 — body에 직접 append되므로 반드시 최상위에 위치
+        #authorityConfirmModal {
+            @include position($p: fixed);
+            @include flex-layout($d: flex, $ai: center, $jc: center);
+            background: rgba(0, 0, 0, 0.4);
+            inset: 0;
+            z-index: 200;
+        }
+
+        .authority-confirm {
+            background: var(--#{$prefix}gray-0);
+            border-radius: 0.8rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            padding: 1.6rem 2rem 2rem;
+            min-width: 34rem;
+            max-width: 90vw;
+
+            &__header {
+                @include flex-layout($d: flex, $ai: center, $jc: space-between);
+                padding-bottom: 1.2rem;
+                margin-bottom: 1.6rem;
+                border-bottom: 1px solid var(--#{$prefix}gray-26);
+            }
+
+            &__title {
+                @include font($fw: 700, $fz: 1.5rem, $color: var(--#{$prefix}gray-90));
+            }
+
+            &__close {
+                background: none;
+                border: none;
+                cursor: pointer;
+
+                img {
+                    width: 1.6rem;
+                }
+            }
+
+            &__message {
+                @include font($fz: 1.4rem, $color: var(--#{$prefix}gray-70));
+                margin-bottom: 2.4rem;
+                line-height: 1.6;
+            }
+
+            &__footer {
+                @include flex-layout($d: flex, $jc: flex-end);
+                gap: 0.8rem;
+
+                .btn {
+                    min-width: 8rem;
+                    padding: 0.9rem 1.6rem;
+                    border-radius: 0.4rem;
+                    @include font($fw: 600, $fz: 1.4rem);
+                    cursor: pointer;
+
+                    &-white {
+                        background: var(--#{$prefix}gray-5);
+                        border: 1px solid var(--#{$prefix}gray-30);
+                        color: var(--#{$prefix}gray-80);
+                    }
+
+                    &-primary {
+                        background: var(--#{$prefix}mh-50);
+                        border: none;
+                        color: var(--#{$prefix}gray-0);
+                    }
+                }
+            }
+        }
+        // 권한 설정 저장/취소 확인 모달 끝
+
+        &__download-btn {
+            @include flex-layout($d: flex, $ai: center);
+            gap: 0.6rem;
+            padding: 0.25rem 1rem;
+            border-radius: 0.3rem;
+            background-color: var(--#{$prefix}mh-50);
+            border: 1px solid var(--#{$prefix}mh-60);
+            cursor: pointer;
+
+            span {
+                @include font($fw: 500, $fz: 1.4rem, $color: var(--#{$prefix}gray-0));
+            }
+
+            img {
+                width: 1.2rem;
+                height: 1.2rem;
+            }
+
+            &:hover {
+                background-color: var(--#{$prefix}mh-65);
+                border: 1px solid var(--#{$prefix}mh-75);
+            }
+        }
+        &__setting-btn {
+            @include flex-layout($d: flex, $ai: center);
+            gap: 0.6rem;
+            padding: 0.25rem 1rem;
+            border-radius: 0.3rem;
+
+            cursor: pointer;
+
+            span {
+                @include font($fw: 600, $fz: 1.4rem, $color: var(--#{$prefix}gray-90));
+            }
+
+            img {
+                width: 1.2rem;
+                height: 1.2rem;
+            }
+        }
+    }
+
+    //대시보드
+    .dashboard-content {
+        //@include flex-layout($d: flex, $fd: column);
+        @include position($p: relative);
+        overflow: hidden;
+        @include flex-layout($d: grid, $ai: stretch);
+        gap: 1.2rem;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(0, 1fr) minmax(0, 0.8fr); // member
+        width: 100%;
+        height: calc(100vh - var(--footer-height) - var(--page-header-height));
+        padding: 1rem;
+        background-color: var(--#{$prefix}gray-5);
+
+        /* 상단 요약 */
+        .summary-grid {
+            @include position($p: relative);
+            @include flex-layout($d: grid, $ai: stretch);
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+            width:100%;
+            @media (max-width: 1280px) {
+                & {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+            .summary-card {
+                @include flex-layout($d: flex, $jc: space-between, $fd: column, $ai: normal);
+                padding: 1.2rem;
+                min-height: 11rem;
+                background-color: var(--#{$prefix}gray-0);
+                border: 1px solid var(--#{$prefix}gray-20);
+                border-radius: 0.6rem;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+
+                /* 공통 */
+                h4 {
+                    @include font($fw: 600, $fz: 1.6rem, $color: #404c5e);
+                }
+
+                /* 범례 (summary-legend) */
+                .summary-legend {
+                    @include flex-layout($d: flex, $fd: column);
+                    gap: 0rem;
+                    padding: 0;
+                    margin: 0;
+                    list-style: none;
+
+                    .legend-item {
+                        @include flex-layout($d: flex, $ai: center);
+                        gap: 0.4rem;
+
+                        .legend-dot {
+                            width: 1.1rem;
+                            height: 1.1rem;
+                            border-radius: 50%;
+                            flex-shrink: 0;
+                        }
+
+                        .legend-text {
+                            @include font($fw: 500, $fz: 1rem, $color: var(--#{$prefix}gray-70));
+                            white-space: nowrap;
+                        }
+
+                        /* 매출 */
+                        &.is-sales {
+                            .legend-dot {
+                                background-color: #2f5f58; // 차트 매출 컬러와 동일
+                            }
+                        }
+
+                        /* 비매출 */
+                        &.is-non-sales {
+                            .legend-dot {
+                                background-color: #c79a5b;
+                            }
+                        }
+
+                        /* 공통 */
+                        &.is-common {
+                            .legend-dot {
+                                background-color: #9e9e9e;
+                            }
+                        }
+                    }
+                }
+
+                /* ① 진행 프로젝트 */
+                &.project-status {
+                    @include position($p: relative);
+                    .project-count {
+                        @include flex-layout($d: flex, $jc: space-between);
+                        width: 100%;
+                        gap: 0.6rem;
+                        .item {
+                            @include flex-layout($d: flex, $fd: column);
+                            gap: 0.6rem;
+                            width: 50%;
+
+                            &:nth-child(1)::after {
+                                content: "";
+                                @include position($p: absolute, $l: 48%, $t: 72%);
+                                width: 0.2rem;
+                                height: 2rem;
+                                background: var(--#{$prefix}gray-30);
+                            }
+                            .badge {
+                                padding: 0.3rem 0.5rem;
+                                border-radius: 0.4rem;
+                                @include font($fw: 600, $lh: 1, $fz: 1.3rem, $color: #fff);
+
+                                &.primary {
+                                    background-color: var(--#{$prefix}blue-50);
+                                }
+                                &.assist {
+                                    background-color: var(--#{$prefix}orange-50);
+                                }
+                            }
+
+                            .value {
+                                width: 100%;
+                                @include font($ta: center);
+                                strong {
+                                    @include font($fw: 600, $lh: 1, $fz: 2.8rem, $color: var(--#{$prefix}gray-80));
+                                }
+                                span {
+                                    margin-left: 0.2rem;
+                                    @include font($fw: 500, $lh: 1, $fz: 1.3rem, $color: var(--#{$prefix}gray-60));
+                                }
+                            }
+                        }
+                    }
+                }
+
+                /* ② 프로젝트 유형별 M/H */
+                &.mh-chart {
+                    @include flex-layout($d: flex, $fd: column);
+                    gap: 0.8rem;
+                    @include position($p: relative);
+
+                    /* 반원 마스크 영역 */
+                    .mh-chart-mask {
+                        @include position($p: absolute, $r: -17.5%, $b: 0);
+                        width: 100%;
+                        height: 7.5rem; // 반원 높이에 맞춘 컨테이너
+                        overflow: hidden; // 아래 반원 숨김
+                        padding-bottom: 2rem; // 상단 여유 확보
+                    }
+
+                    /* ApexCharts 캔버스 */
+                    #mhChart {
+                        width: 100%;
+                        height: 200px;
+                    }
+
+                    /* ===============================
+                        차트 (mh-chart-center)
+                    =============================== */
+                    .mh-chart-center {
+                        @include position($p: absolute, $t: 79%, $l: 50%);
+                        @include flex-layout($d: flex, $fd: column, $ai: center);
+                        transform: translate(-52%, -50%);
+                        pointer-events: none; // 차트 hover 방해 금지
+
+                        .label {
+                            @include font($fw: 500, $lh: 1, $fz: 1.2rem, $ta: center, $color: var(--#{$prefix}gray-65));
+                        }
+
+                        .value {
+                            @include font($fw: 700, $lh: 1.1, $fz: 1.5rem, $ta: center, $color: var(--#{$prefix}gray-90));
+                        }
+                        .percent {
+                            @include font($fw: 500, $lh: 1, $fz: 1.2rem, $color: inherit);
+                        }
+                    }
+                }
+
+                /* ③ 비용 총합 */
+                &.cost-summary {
+                    @include position($p: relative);
+                    .cost-list {
+                        @include flex-layout($d: flex, $fd: row);
+                        gap: 0.6rem;
+
+                        .item {
+                            @include flex-layout($d: flex, $fd: column);
+                            gap: 0.6rem;
+                            width: 50%;
+
+                            &:nth-child(1)::after {
+                                content: "";
+                                @include position($p: absolute, $l: 48%, $t: 67%);
+                                width: 0.2rem;
+                                height: 2rem;
+                                background: var(--#{$prefix}gray-30);
+                            }
+                            .bage-info {
+                                @include flex-layout($d: flex, $ai: center);
+                                @include position($p: relative);
+                                gap: 5px;
+
+                                .tooltip-container {
+                                    @include position($p: relative);
+                                    display: inline-block;
+
+                                    .tool-tip-trigger {
+                                        cursor: pointer;
+                                        vertical-align: middle;
+                                    }
+
+                                    /* 툴팁 본체 */
+                                    .tooltip-box {
+                                        overflow: hidden;
+                                        display: none; // 기본은 숨김
+                                        @include position($p: absolute, $t: 2rem, $l: 0);
+                                        width: 280px;
+                                        background: var(--#{$prefix}gray-0);
+                                        border-radius: 0.6rem;
+                                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                                        z-index: 5;
+
+                                        /* 툴팁 상단 헤더 */
+                                        .tooltip-header {
+                                            @include flex-layout($d: flex, $jc: space-between, $ai: center);
+                                            padding: 0.4rem 0.8rem;
+                                            background-color: var(--#{$prefix}gray-65);
+                                            @include font($fw: 600, $fz: 1.4rem, $color: var(--#{$prefix}gray-0));
+
+                                            .tooltip-close {
+                                                cursor: pointer;
+                                                img {
+                                                    width: 1.1rem;
+                                                }
+                                            }
+                                        }
+
+                                        /* 툴팁 하단 내용 */
+                                        .tooltip-body {
+                                            padding: 0.8rem 1.2rem;
+                                            @include font($fw: 600, $lh: 1.4, $fz: 1.3rem, $color: var(--#{$prefix}gray-70));
+                                            border: 1px solid var(--#{$prefix}gray-38);
+                                            border-top: none;
+                                            border-radius: 0 0 6px 6px;
+                                        }
+                                    }
+                                }
+                            }
+                            .badge {
+                                padding: 0.3rem 0.5rem;
+                                border-radius: 0.4rem;
+                                @include font($fw: 600, $lh: 1, $fz: 1.3rem, $color: #fff);
+
+                                &.primary {
+                                    background-color: var(--#{$prefix}blue-50);
+                                }
+                                &.assist {
+                                    background-color: var(--#{$prefix}orange-50);
+                                }
+                            }
+
+                            .value {
+                                width: 100%;
+                                @include font($ta: left);
+                                strong {
+                                    @include font($fw: 600, $lh: 1, $fz: 2.8rem, $color: var(--#{$prefix}gray-80));
+                                    letter-spacing: -0.1rem;
+                                }
+                                span {
+                                    margin-left: 0.2rem;
+                                    @include font($fw: 500, $lh: 1, $fz: 1.3rem, $color: var(--#{$prefix}gray-60));
+                                }
+                            }
+                        }
+                        @media (max-width: 1280px) {
+                            &:nth-child(1)::after {
+                                content: "";
+                                @include position($p: absolute, $l: 48%, $t: 66%);
+                                width: 0.2rem;
+                                height: 2rem;
+                                background: var(--#{$prefix}gray-30);
+                            }
+                        }
+                    }
+                }
+
+                /* ④ 근태 현황 */
+                &.status {
+                    @include position($p: relative);
+
+                    /* 기본: 전부 숨김 */
+                    .status-wrap,
+                    .attendance-list {
+                        display: none;
+                    }
+
+                    /* 공통 status-wrap */
+                    .status-wrap {
+                        @include flex-layout($d: flex, $ai: center, $jc: space-around);
+                    }
+
+                    /* 공통 status-text */
+                    .status-text {
+                        @include font($fw: 500, $fz: 1.6rem, $color: var(--#{$prefix}gray-80));
+
+                        em {
+                            @include font($fw: 600, $fz: 1.6rem);
+                        }
+
+                        /* 문구 분리 (정상 / 경고) */
+                        .text-normal {
+                            display: none;
+                        }
+
+                        .text-warning {
+                            display: none;
+                        }
+                    }
+
+                    /* ① 기본 상태 */
+                    &.is-normal {
+                        .status-wrap {
+                            display: flex;
+                        }
+
+                        .status-text {
+                            .text-normal {
+                                display: inline;
+                            }
+
+                            em {
+                                color: var(--#{$prefix}mh-50);
+                            }
+                        }
+
+                        .status-icon {
+                            img {
+                                content: url("../images/common/icon-good.svg");
+                            }
+                        }
+                    }
+
+                    /* ② 관리 필요 상태 (팀원) */
+                    &.is-warning {
+                        .status-wrap {
+                            display: flex;
+                        }
+
+                        .status-text {
+                            .text-normal {
+                                display: none;
+                            }
+
+                            .text-warning {
+                                display: inline;
+                            }
+
+                            em {
+                                color: var(--#{$prefix}red-50);
+                            }
+                        }
+
+                        .status-icon {
+                            img {
+                                content: url("../images/common/icon-bad.svg");
+                            }
+                        }
+                    }
+
+                    /* ③ 팀장 근태 상세 */
+                    &.is-leader {
+                        overflow: hidden;
+                        height: 11rem;
+
+                        .attendance-list {
+                            @include position($p: relative);
+                            @include flex-layout($d: flex, $jc: space-between);
+                            height: 10rem;
+                            padding: 0.2rem 1rem 0.4rem 0;
+                            margin-top: 0.4rem;
+                            overflow: auto;
+                        }
+
+                        .status-icon {
+                            display: none;
+                        }
+
+                        .attendance-item {
+                            .badge {
+                                padding: 0rem 0.4rem;
+                                background: var(--#{$prefix}red-50);
+                                border-radius: 0.4rem;
+                                margin-bottom: 0.2rem;
+                                @include font($fw: 500, $fz: 1.3rem, $color: var(--#{$prefix}gray-0));
+
+                                // 시멘틱 뱃지 색상
+                                &.red {
+                                    background: var(--#{$prefix}red-50);
+                                }
+                                &.orange {
+                                    background: var(--#{$prefix}orange-50);
+                                }
+                                &.green {
+                                    background: var(--#{$prefix}green-60);
+                                }
+                                &.blue {
+                                    background: var(--#{$prefix}blue-50);
+                                }
+                                &.gray {
+                                    background: var(--#{$prefix}gray-50);
+                                }
+                            }
+
+                            li {
+                                @include font($fw: 600, $fz: 1.3rem, $color: var(--#{$prefix}gray-80));
+                                strong {
+                                    @include font($fw: 600, $fz: 1.3rem, $color: var(--#{$prefix}red-50));
+                                }
+                            }
+
+                            &.late,
+                            &.leave {
+                                @include position($p: relative);
+                                @include flex-layout($d: flex, $ai: flex-start);
+                                gap: 0.7rem;
+
+                                &::after {
+                                    //content: "";
+                                    //@include position($p:absolute, $t:0, $r:-52%);
+                                    //width: 0.2rem;
+                                    //height: 100%;
+                                    //background: var(--#{$prefix}gray-30);
+                                }
+                                @media screen and (max-width: 1710px) {
+                                    &.late,
+                                    &.leave {
+                                        @include flex-layout($fd: column);
+                                        gap: 0.2rem;
+                                    }
+                                }
+                            }
+                        }
+                        @media screen and (max-width: 1535px) {
+                            height: 12.2rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        /* ===============================
+        프로젝트별 상세 집행 현황
+        =============================== */
+        .project-section {
+            @include flex-layout($d: flex, $fd: column);
+            width:100%;            
+            min-height: 1.5rem;
+            padding: 1.2rem;
+            background-color: var(--#{$prefix}gray-0);
+            border: 1px solid var(--#{$prefix}gray-20);
+            border-radius: 0.6rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+
+            .project-table-container {
+                width: 100%;
+                overflow: auto;
+            }
+            /* PROJECT TABLE WRAP*/
+            .project-table-wrap {
+                flex: 1;
+                width: 100%;
+                overflow-x: auto;
+                overflow-y: auto;
+            }
+
+            /* PROJECT TABLE */
+            .project-table {
+                min-width: 108rem; // 18 + 48 + 42 = 108rem
+                width: 100%;
+                //flex: 1;
+                //height: 100%;
+                //overflow-y: auto;
+                //min-width: calc(18rem + 48rem + 42rem);
+                @media screen and (max-width: 1710px) {
+                    & {
+                        //width: max-content;
+                    }
+                }
+            }
+
+            /* TABLE GRID (HEADER / ROW) */
+            .project-table-head,
+            .project-table-row {
+                @include flex-layout($d: grid, $ai: stretch);
+                grid-template-columns:
+                    14rem /* 프로젝트 정보 */
+                    minmax(48rem, 1.2fr) /* 투입시간/인원 */
+                    minmax(26rem, 0.5fr); /* 비용 영역 (헤더 + 테이블) */
+                gap: 1.6rem;
+            }
+            .cost-header {
+                @include flex-layout($d: grid, $ai: center);
+                grid-template-columns: 1fr 1fr;
+                gap: 1.6rem;
+            }
+
+            /* HEADER */
+            .project-table-head {
+                @include position($p: relative);
+                padding: 0.8rem 1rem;
+                background: var(--#{$prefix}gray-10);
+                border-radius: 0.4rem;
+                white-space: nowrap;
+
+                /*  가로 스크롤 시 배경 유지 핵심 */
+                &::before {
+                    content: "";
+                    @include position($p: absolute, $t: 0, $l: 0);
+                    width: 100%;
+                    height: 100%;
+                    background: var(--#{$prefix}gray-10);
+                    border-radius: 0.4rem;
+                    z-index: -1;
+                }
+
+                .col {
+                    @include font($fw: 600, $lh: 100%, $fz: 1.3rem, $color: var(--#{$prefix}gray-70));
+                    letter-spacing: 0.02rem;
+                    &.name,
+                    &.project {
+                        padding: 0;
+                    }
+                }
+                @media screen and (max-width: 1600px) {
+                    font-size: 1.2rem;
+                    letter-spacing: -0.02em;
+                }
+            }
+
+            /* ROW */
+            .project-table-row {
+                @include flex-layout($d: grid, $ai: center);
+                //grid-template-columns: 20rem 1fr 26rem;
+                gap: 1.6rem;
+                padding: 0.8rem;
+                border-bottom: 1px solid var(--#{$prefix}gray-20);
+            }
+
+            /* 프로젝트 정보 */
+            .project-info {
+                @include flex-layout($d: flex, $fd: column);
+                min-width: 0;
+                gap: 0.5rem;
+                overflow: hidden;
+
+                .project-title {
+                    @include flex-layout($d: flex, $ai: center);
+                    width: 100%;
+                    min-width: 0;
+                    gap: 0.4rem;
+
+                    strong {
+                        flex: 1;
+                        min-width: 0;
+                        @include font($fw: 600, $fz: 1.4rem);
+                        @include ellipsis;
+                    }
+                }
+
+                .project-meta {
+                    @include flex-layout($d: flex, $fd: column, $ai: normal);
+                    //gap: 0.1rem;
+
+                    .meta-item {
+                        @include flex-layout($d: flex, $ai: center);
+                        gap: 0.4rem;
+
+                        img {
+                            @include position($p: relative, $t: -0.5px);
+                            width: 1.2rem;
+                        }
+                        span {
+                            max-width: 16rem;
+                            @include font($fz: 1.2rem, $fw: 500, $color: var(--#{$prefix}gray-70));
+                            @include ellipsis;
+                        }
+                    }
+                }
+            }
+
+            /* 투입시간 / 인원 */
+            .gantt-wrapper {
+                @include flex-layout($d: flex, $jc: space-between);
+                gap: 1.6rem;
+                width: 100%;
+                @include font($fw: 400, $fz: 1.3rem);
+            }
+
+            .gantt-col {
+                flex: 1;
+            }
+
+            /* ===== 눈금 ===== */
+            .scale {
+                @include flex-layout($d: grid, $ai: stretch);
+                grid-template-columns: repeat(8, 1fr);
+                @include position($p: relative);
+                margin-left: 5.6rem; // 좌측 정보 영역 폭과 정확히 일치
+                margin-bottom: 0.8rem;
+                @include font($fw: 400, $fz: 1.2rem, $color: var(--#{$prefix}gray-60));
+                span {
+                    @include font($fw: 400, $fz: 1.1rem, $color: var(--#{$prefix}gray-60));
+                }
+                &::after {
+                    content: "80";
+                    @include position($p: absolute, $r: 0, $t: 0);
+                    @include font($fw: 400, $fz: 1.1rem, $color: var(--#{$prefix}gray-60));
+                }
+            }
+
+            .row {
+                @include flex-layout($d: flex, $ai: center);
+                margin-bottom: 0.8rem;
+            }
+
+            /* 왼쪽 컬럼 (수석 / 책임) */
+            .gantt-col:first-child {
+                .row:nth-child(1) .info {
+                    color: #4a7dff;
+                }
+                .row:nth-child(2) .info {
+                    color: #ff9f40;
+                }
+            }
+
+            /* 오른쪽 컬럼 (선임 / 연구원) */
+            .gantt-col:last-child {
+                .row:nth-child(1) .info {
+                    color: #c77dff;
+                }
+                .row:nth-child(2) .info {
+                    color: #3cb371;
+                }
+            }
+
+            /* 좌측 정보 (그래프 외부) */
+            .info {
+                width: 5.6rem; // 고정
+                padding-right: 0.8rem;
+                @include font($fw: 600, $fz: 1.2rem, $ta: left);
+            }
+
+            /* 그래프 영역 (00 시작점) */
+            .graph {
+                @include flex-layout($d: flex, $ai: center);
+                @include position($p: relative);
+                gap: 0.2rem;
+                flex: 1;
+                height: 2.4rem;
+                overflow: visible; // .total이 위로 올라갈 수 있도록
+
+                /* 세로 점선 */
+                background-image: repeating-linear-gradient(to right, #e6e6e6 0, #e6e6e6 1px, transparent 1px, transparent calc(100% / 8));
+
+                span {
+                    @include font($fw: 600, $fz: 1.2rem);
+
+                    &.blue {
+                        color: #4a7dff;
+                        background-color: transparent;
+                    }
+                    &.orange {
+                        color: #ff9f40;
+                        background-color: transparent;
+                    }
+                    &.purple {
+                        color: #c77dff;
+                        background-color: transparent;
+                    }
+                    &.green {
+                        color: #3cb371;
+                        background-color: transparent;
+                    }
+                    &.red {
+                        color: #ea0202;
+                        background-color: transparent;
+                    }
+                }
+
+                // .total: 기본 인라인 / 공간 부족 시 JS가 .is-above 추가
+                span.total {
+                    flex-shrink: 0;
+                    white-space: nowrap;
+
+                    &.is-above {
+                        @include position($p: absolute, $t: 50%, $r: 0);
+                        transform: translateY(-50%);
+                        padding: 0 0.4rem;
+                        z-index: 1;
+                    }
+                }
+            }
+
+            /* 그래프 바 */
+            .bar {
+                @include flex-layout($d: flex, $ai: center);
+                @include position($p: relative);
+                flex-shrink: 0; // width % 유지 보장
+                height: 2.4rem; // 부모 min-height 전환으로 고정값 명시
+                border-radius: 0.2rem;
+                overflow: hidden; // bar 밖 차단
+                padding-left: 0.4rem;
+
+                /* 컬러별 bar (배경은 bar에만) */
+                &.blue {
+                    width: 15%;
+                    border-left: 3px solid #4a7dff;
+                    background: rgba(74, 125, 255, 0.18);
+                    color: #4a7dff;
+                }
+
+                &.orange {
+                    width: 50%;
+                    border-left: 3px solid #ff9f40;
+                    background: rgba(255, 159, 64, 0.22);
+                    color: #ff9f40;
+                }
+
+                &.purple {
+                    width: 75%;
+                    border-left: 3px solid #c77dff;
+                    background: rgba(199, 125, 255, 0.22);
+                    color: #c77dff;
+                }
+
+                &.green {
+                    width: 40%;
+                    border-left: 3px solid #3cb371;
+                    background: rgba(60, 179, 113, 0.22);
+                    color: #3cb371;
+                }
+
+                .name {
+                    vertical-align: middle;
+                    @include font($fz: 1rem, $fw: 500);
+                }
+
+                /* bar 내부 텍스트 (말줄임 핵심) */
+                .bar-text {
+                    display: block;
+                    width: 100%;
+                    min-width: 0; //  flex 환경 ellipsis 안정화
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+
+                    @include font($fz: 1rem, $fw: 500);
+                    background: transparent;
+                    color: inherit;
+                    pointer-events: auto;
+                }
+            }
+
+            /* 컬러 (bar 이외 영역 배경 제거) */
+            .total.blue,
+            .total.orange,
+            .total.purple,
+            .total.green,
+            .total.red {
+                background: transparent;
+            }
+
+            .bar-label {
+                /* hover 시 tooltip */
+                &:hover::after {
+                    content: attr(data-full-text);
+                    @include position($p: absolute, $t: 120%, $l: 0);
+                    z-index: 10;
+
+                    padding: 0.4rem 0.6rem;
+                    border-radius: 0.4rem;
+                    background: #333;
+                    color: #fff;
+
+                    font-size: 1rem;
+                    white-space: nowrap;
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+                }
+            }
+
+            /* 컬러 */
+            .blue {
+                background: rgba(74, 125, 255, 0.18);
+                color: #4a7dff;
+            }
+            .orange {
+                background: rgba(255, 159, 64, 0.22);
+                color: #ff9f40;
+            }
+            .purple {
+                background: rgba(199, 125, 255, 0.22);
+                color: #c77dff;
+            }
+            .green {
+                background: rgba(60, 179, 113, 0.22);
+                color: #3cb371;
+            }
+            .red {
+                background: rgba(179, 60, 60, 0.22);
+                color: #ea0202;
+            }
+
+            /* 투입 비용 박스 */
+            .cost-scroll {
+                width: 100%;
+                overflow-x: auto;
+                max-width: 100%;
+                min-width: 380px;
+            }
+            .cost-box {
+                border: 1px solid var(--#{$prefix}gray-20);
+                border-radius: 0.6rem;
+                //padding: 0.8rem;
+                background: var(--#{$prefix}gray-0);
+                @include flex-layout($d: flex, $fd: column);
+                box-shadow: 0.8px 0.4px 1px rgba(0, 0, 0, 0.38);
+
+                .cost-grid {
+                    @include flex-layout($d: grid, $ai: stretch);
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 0.6rem 1.6rem;
+                    width: 100%;
+                    padding: 0.6rem 0.6rem 0rem 0.6rem;
+
+                    .item {
+                        @include flex-layout($d: flex, $jc: space-between, $ai: center);
+                        border-bottom: 1px solid var(--#{$prefix}gray-30);
+                        padding-bottom: 0.2rem;
+
+                        span {
+                            @include font($fz: 1.2rem, $fw: 500, $color: var(--#{$prefix}gray-60));
+                        }
+
+                        .item-num {
+                            strong {
+                                @include font($fz: 1.4rem, $fw: 600, $color: var(--#{$prefix}gray-90));
+                            }
+                            em {
+                                @include font($fz: 1rem, $fw: 500, $color: var(--#{$prefix}gray-50));
+                            }
+                        }
+                        @media screen and (max-width: 1600px) {
+                            & {
+                                @include flex-layout($fd: column);
+                            }
+                            .item-num {
+                                @include flex-layout($d: flex, $ai: center);
+                            }
+                        }
+                    }
+                }
+
+                .total {
+                    @include flex-layout($d: flex, $jc: space-between, $fd: row, $fw: nowrap, $ai: center);
+                    width: 100%;
+                    padding: 0.2rem 0.6rem;
+                    background: var(--#{$prefix}mh-5);
+                    border-top: 1px solid var(--#{$prefix}mh-50);
+
+                    span {
+                        @include font($fz: 1.4rem, $fw: 700, $color: var(--#{$prefix}mh-60));
+                    }
+                    strong {
+                        @include font($fz: 1.6rem, $fw: 700, $color: var(--#{$prefix}mh-60));
+                    }
+                }
+            }
+        }
+        .member-section {
+            @include flex-layout($d: flex);
+            gap: 1.2rem;
+            width: 100%;
+
+            /* 인원별 현황 시작 */
+            .member-status {
+                @include position($p: relative);
+                @include flex-layout($d: flex, $fd: column);
+                padding: 1.2rem;
+                width: 100%;
+                max-width: 67%;
+                height: 100%;
+                overflow: hidden;
+                background-color: var(--#{$prefix}gray-0);
+                border: 1px solid var(--#{$prefix}gray-20);
+                border-radius: 0.6rem;
+
+                /* 스크롤 전담 영역 (세로 스크롤은 여기만) */
+                .member-table-wrap {
+                    flex: 1;
+                    width: 100%;
+                    min-height: 0; /* grid/flex에서 스크롤 안정화 */
+                    overflow-y: auto;
+                    overflow-x: hidden; /* 행 내부에서 가로스크롤을 담당하므로 wrap은 숨김 */
+                    padding-right: 0.2rem; /* 스크롤바 여백 */
+                }
+
+                /* 테이블 본체 */
+                .member-table {
+                    width: 100%;
+                    min-width: 100%;
+                }
+
+                /* 공통: 헤더/로우 그리드 */
+                .member-table-head,
+                .member-table-row {
+                    @include flex-layout($d: grid, $ai: center);
+                    grid-template-columns:
+                        15rem /* 이름(이미지처럼 좌측 여유) */
+                        minmax(0, 1fr); /* 투입 프로젝트 */
+                    gap: 1.6rem;
+                }
+
+                /* HEADER */
+                .member-table-head {
+                    padding: 0.8rem 1rem;
+                    background: var(--#{$prefix}gray-10);
+                    border-radius: 0.4rem;
+
+                    /* (선택) 헤더 고정이 필요하면 주석 해제 */
+                    // position: sticky;
+                    // top: 0;
+                    // z-index: 5;
+
+                    .col {
+                        @include font($fw: 600, $lh: 100%, $fz: 1.3rem, $color: var(--#{$prefix}gray-70));
+                        letter-spacing: 0.02rem;
+                        &.name,
+                        &.project {
+                            padding: 0;
+                        }
+                    }
+                }
+
+                /* ROW */
+                .member-table-row {
+                    padding: 0.8rem 1rem 0.2rem 1rem;
+                    border-bottom: 1px solid var(--#{$prefix}gray-20);
+                }
+
+                /* 이름 */
+                .col.name {
+                    @include flex-layout($d: flex, $fd: column);
+                    gap: 0.6rem;
+
+                    .name-wrap {
+                        @include flex-layout($d: flex, $ai: center);
+                        gap: 0.4rem;
+                        @media screen and (max-width: 1200px) {
+                            @include flex-layout($d: flex, $ai: flex-start, $jc: flex-start, $fd: column-reverse, $fw: nowrap);
+                        }
+                    }
+
+                    .people-name {
+                        @include font($fw: 700, $fz: 1.6rem, $color: var(--#{$prefix}gray-90));
+                    }
+
+                    .people-position {
+                        @include font($fw: 500, $fz: 1.2rem, $color: var(--#{$prefix}gray-60));
+                    }
+
+                    .badge {
+                        padding: 0.2rem 0.6rem;
+                        border-radius: 0.4rem;
+                        background: var(--#{$prefix}mh-10);
+                        @include font($fw: 600, $fz: 1.1rem, $color: var(--#{$prefix}mh-70));
+
+                        &.leader {
+                            background: var(--#{$prefix}mh-10);
+                            color: var(--#{$prefix}mh-70);
+                        }
+                    }
+                    .overtime-wrap {
+                        @include flex-layout($d: flex, $ai: center, $jc: center);
+                        gap: 0.2rem;
+                        span {
+                            @include font($fw: 600, $fz: 1rem, $color: var(--#{$prefix}red-70));
+                        }
+                    }
+                    .overtime-num {
+                        @include flex-layout($d: flex, $ai: center, $jc: center);
+                        .over-time {
+                            @include font($fw: 600, $fz: 2.4rem, $color: var(--#{$prefix}mh-50));
+                        }
+                        .default-time {
+                            @include font($fw: 600, $fz: 2rem, $color: var(--#{$prefix}gray-70));
+                        }
+                    }
+                }
+
+                /* 투입 프로젝트: 행 내부 가로 스크롤 */
+                .col.project {
+                    min-width: 0;
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    padding-bottom: 0.6rem; /* 스크롤바 공간 */
+                    white-space: nowrap;
+
+                    /* 카드들을 나란히 배치 */
+                    @include flex-layout($d: flex, $ai: stretch);
+                    gap: 1.2rem;
+
+                    /* 스크롤바(선택): 얇게 */
+                    &::-webkit-scrollbar-thumb {
+                        background: var(--#{$prefix}gray-30);
+                        border-radius: 50rem;
+                    }
+                    &::-webkit-scrollbar-track {
+                        background: transparent;
+                    }
+
+                    .project-item {
+                        @include position($p: relative);
+                        @include flex-layout($d: flex, $fd: column);
+                        flex-shrink: 0;
+
+                        /* 이미지 느낌: 카드 */
+                        width: 24rem;
+                        padding: 0.8rem 0.8rem 0.8rem 1rem;
+                        border: 1px solid var(--#{$prefix}gray-20);
+                        border-radius: 0.6rem;
+                        background: var(--#{$prefix}gray-0);
+                        box-shadow: 0.4px 0.2px 0.8px rgba(0, 0, 0, 0.12);
+
+                        /* 좌측 컬러바 */
+                        &::before {
+                            content: "";
+                            @include position($p: absolute, $l: 0, $t: 0, $b: 0);
+                            width: 4px;
+                            border-radius: 0.6rem 0 0 0.6rem;
+                            background: var(--#{$prefix}mh-60); /* 기본값 */
+                        }
+
+                        /* 프로젝트별 dot 색을 컬러바에도 반영하고 싶다면 아래 매핑 사용 */
+                        &:has(.dot.blue)::before {
+                            background: #4a7dff;
+                        }
+                        &:has(.dot.green)::before {
+                            background: #3cb371;
+                        }
+                        &:has(.dot.hanmac-green)::before {
+                            background: #2dbe8a;
+                        } /* 예시 */
+                        &:has(.dot.red)::before {
+                            background: #ea0202;
+                        }
+                        &:has(.dot.purple)::before {
+                            background: #c77dff;
+                        }
+                        &:has(.dot.orange)::before {
+                            background: #ff9f40;
+                        }
+                        &:has(.dot.hanmacgreen)::before {
+                            background: #2f5f58;
+                        }
+                        &:has(.dot.hanmacbrown)::before {
+                            background: #c79a5b;
+                        }
+                        &:has(.dot.hanmacgray)::before {
+                            background: #9e9e9e;
+                        }
+                        
+
+                        .project-title {
+                            @include flex-layout($d: flex, $ai: center);
+                            gap: 0.6rem;
+                            margin-bottom: 0.6rem;
+
+                            strong {
+                                max-width: 19rem;
+                                @include font($fw: 600, $fz: 1.4rem, $color: var(--#{$prefix}gray-90));
+                                @include ellipsis;
+                            }
+                        }
+
+                        .dot {
+                            display: none;
+                            width: 0.8rem;
+                            height: 0.8rem;
+                            border-radius: 999px;
+                            background: var(--#{$prefix}gray-40);
+
+                            &.blue {
+                                background: #4a7dff;
+                            }
+                            &.green {
+                                background: #3cb371;
+                            }
+                            &.hanmac-green {
+                                background: #2dbe8a;
+                            }
+                            &.orange {
+                                background: #ff9f40;
+                            }
+                            &.purple {
+                                background: #c77dff;
+                            }
+                            &.red {
+                                background: #ea0202;
+                            }
+                            &.hanmacgreen {
+                                background: #2f5f58;
+                            }
+                            &.hanmacbrown {
+                                background: #c79a5b;
+                            }
+                            &.hanmacgray {
+                                background: #9e9e9e;
+                            }
+                        }
+                        .calendar-wrap {
+                            @include flex-layout($d: flex, $ai: center);
+                            gap: 0.4rem;
+                            margin-bottom: 0.3rem;
+                            img {
+                                width: 1.4rem;
+                                height: 1.4rem;
+                                opacity: 0.75;
+                            }
+                            .time-date {
+                                margin-left: 0.2rem;
+                                @include font($fw: 500, $fz: 1.2rem, $color: var(--#{$prefix}gray-70));
+                                @include ellipsis;
+                                max-width: 14rem;
+                            }
+                        }
+                        .time-wrap {
+                            @include flex-layout($d: flex, $ai: center);
+                            gap: 0.4rem;
+
+                            img {
+                                width: 1.4rem;
+                                height: 1.4rem;
+                                opacity: 0.75;
+                            }
+
+                            .time {
+                                @include font($fw: 700, $fz: 1.2rem, $color: var(--#{$prefix}mh-50));
+                            }
+                            .time-date {
+                                margin-left: 0.2rem;
+                                @include font($fw: 500, $fz: 1.1rem, $color: var(--#{$prefix}gray-60));
+                                @include ellipsis;
+                                max-width: 14rem;
+                            }
+                            .add-time {
+                                @include font($fw: 700, $fz: 1.2rem, $color: var(--#{$prefix}red-50));
+                            }
+                        }
+
+                        .project-text-wrap {
+                            @include flex-layout($d: flex, $ai: center);
+                            gap: 0.4rem;
+                            margin-bottom: 0.3rem;
+                            img {
+                                width: 1.4rem;
+                                height: 1.4rem;
+                                opacity: 0.75;
+                            }
+
+                            span {
+                                @include font($fw: 500, $fz: 1.2rem, $color: var(--#{$prefix}gray-70));
+                                max-width: 20rem;
+                                @include ellipsis;
+                            }
+                        }
+
+                        .line-graph {
+                            @include flex-layout($d: flex, $fd: column);
+                            width: 100%;
+                            margin-top: 0.4rem;
+
+                            .total-time {
+                                width: 100%;
+                                margin-bottom: 0.2rem;
+                                @include font($fw: 500, $fz: 0.8rem, $color: var(--#{$prefix}gray-70), $ta: right);
+                            }
+                            /* 누적 그래프 컨테이너 */
+                            .progress {
+                                overflow: hidden;
+                                @include flex-layout($d: flex);
+                                width: 100%;
+                                height: 0.6rem;
+                                background: var(--#{$prefix}gray-20);
+                                border-radius: 90rem;
+                                .fill {
+                                    height: 100%;
+                                    flex-shrink: 0;
+                                    background: var(--#{$prefix}mh-60);
+                                    &.blue {
+                                        background: #818cf8;
+                                    } //기준 근무시간
+                                    &.red {
+                                        background: #ed1b2f;
+                                    } //초과근무, 주말근무
+                                    &.green {
+                                        background: #5d9d98;
+                                    } //출장
+                                }
+                            }
+                        }
+                    }
+                }
+
+                @media screen and (max-width: 1400px) {
+                    .member-table-head,
+                    .member-table-row {
+                        grid-template-columns: 13rem minmax(0, 1fr);
+                    }
+                    .col.project .project-item {
+                        width: 22rem;
+                    }
+                }
+
+                @media screen and (max-width: 1200px) {
+                    .member-table-head,
+                    .member-table-row {
+                        grid-template-columns: 11rem minmax(0, 1fr);
+                    }
+                    .col.project .project-item {
+                        width: 20rem;
+                    }
+                }
+            }
+
+            /* 프로젝트 점유율 시작 */
+            .project-ratio {
+                overflow: hidden;
+                @include flex-layout($d: flex, $fd: column);
+                width: 100%;
+                max-width: 33%;
+                height: 100%;
+                padding: 1.2rem;
+                background: var(--#{$prefix}gray-0);
+                border: 1px solid var(--#{$prefix}gray-20);
+                border-radius: 0.8rem;
+
+                .title-text-wrap {
+                    @include flex-layout($d: flex, $ai: center);
+                    gap: 0.6rem;
+                    margin-bottom: 0.6rem;
+
+                    h3 {
+                        @include font($fw: 700, $fz: 1.6rem);
+                    }
+                }
+
+                .ratio-sub-title {
+                    width: 100%;
+                    margin-bottom: 1rem;
+                    padding: 0.6rem 1rem;
+                    background: #f2f2f2;
+                    border-radius: 0.4rem;
+                    @include font($fw: 600, $fz: 1.3rem);
+                }
+
+                /* =========================
+                핵심 스크롤 담당 영역
+                ========================= */
+                .ratio-content {
+                    @include position($p: relative);
+                    @include flex-layout($d: grid, $ai: stretch);
+                    grid-template-columns: minmax(271px, 1fr) 20rem;
+                    gap: 1.2rem;
+                    width: 100%;
+                    height: 100%;
+                    min-height: 0;
+                    //max-width: 72rem;     // 줄어들면 가로 스크롤 유도
+                    flex: 1;
+                    overflow: auto; // 가로 + 세로 스크롤
+
+                    /* LEFT */
+                    .ratio-list-wrap {
+                        min-height: 0;
+                        //overflow: visible;
+                        overflow: auto;
+                        padding-right: 0;
+
+                        &::-webkit-scrollbar {
+                            width: 6px;
+                        }
+                        &::-webkit-scrollbar-thumb {
+                            background: var(--#{$prefix}gray-30);
+                            border-radius: 10px;
+                        }
+                    }
+                    &::-webkit-scrollbar {
+                        width: 8px;
+                        height: 8px;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background: var(--#{$prefix}gray-30);
+                        border-radius: 10px;
+                    }
+                }
+
+                /* =========================
+                LIST
+                ========================= */
+                .ratio-list {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+
+                    .item {
+                        @include flex-layout($d: grid, $ai: center);
+                        grid-template-columns: auto 1fr auto auto;
+                        gap: 0.6rem;
+                        margin-bottom: 0.8rem;
+
+                        strong {
+                            @include font($fw: 700, $fz: 1.4rem);
+                        }
+
+                        .percent {
+                            @include font($fw: 600, $fz: 1.3rem);
+                        }
+
+                        .dot {
+                            width: 0.3rem;
+                            height: 1.2rem;
+                            border-radius: 20%;
+                        }
+
+                        .trend {
+                            @include font($fw: 600, $fz: 1.2rem);
+                            padding: 0.2rem 0.6rem;
+                            border-radius: 0.4rem;
+
+                            &.up {
+                                background: #ffe2e2;
+                                color: #d93025;
+                            }
+
+                            &.down {
+                                background: #e8f3ff;
+                                color: #1a73e8;
+                            }
+                        }
+
+                        &.blue .dot {
+                            background: #3f51f5;
+                        }
+                        &.pink .dot {
+                            background: #f7a1d7;
+                        }
+                        &.green .dot {
+                            background: #35635a;
+                        }
+                        &.orange .dot {
+                            background: #f28b20;
+                        }
+                        &.gray .dot {
+                            background: #cfd3f5;
+                        }
+                        &.hanmacgreen .dot {
+                            background: #2f5f58;
+                        }
+                        &.hanmacbrown .dot {
+                            background: #c79a5b;
+                        }
+                        &.hanmacgray .dot {
+                            background: #9e9e9e;
+                        }
+                    }
+                }
+
+                /* =========================
+                DONUT WRAP (오른쪽 고정)
+                ========================= */
+                .donut-wrap {
+                    @include flex-layout($d: flex, $jc: flex-end, $ai: center);
+                    @include position($p: relative);
+                }
+
+                /* =========================
+                반응형
+                ========================= */
+                @media screen and (max-width: 1200px) {
+                    max-width: 100%;
+
+                    .ratio-content {
+                        min-width: 640px; // 모바일에서도 스크롤 유지
+                    }
+
+                    .ratio-list-wrap {
+                        max-height: 16rem;
+                    }
+                }
+            }
+        }
+
+        @media (max-width: 1280px) {
+            & {
+                gap: 1rem;
+                padding: 1rem 1rem 1.6rem;
+                overflow-y: auto !important;
+            }
+        }
+        @media (max-height: 900px) {
+            & {
+                gap: 1.2rem;
+                padding: 1rem 1rem 1.6rem;
+                overflow-y: auto !important;
+            }
+        }
+    }
+    // 공통 컬러 닷/세그먼트 스타일
+    .dot,
+    .seg {
+        &.green {
+            background: var(--#{$prefix}green-40);
+        }
+        &.hanmac-green {
+            background: #37635d;
+        }
+        &.mh {
+            background: var(--#{$prefix}mh-40);
+        }
+        &.orange {
+            background: var(--#{$prefix}orange-40);
+        }
+        &.red {
+            background: var(--#{$prefix}red-40);
+        }
+        &.blue {
+            background: var(--#{$prefix}blue-40);
+        }
+        &.sand {
+            background: var(--#{$prefix}sand-40);
+        }
+        &.gray {
+            background: var(--#{$prefix}gray-40);
+        }
+        &.hanmacgreen {
+            background: #2f5f58;
+        }
+        &.hanmacbrown {
+            background: #c79a5b;
+        }
+        &.hanmacgray {
+            background: #9e9e9e;
+        }
+        &.pink {
+            background: #f392d4;
+        }
+    }
+    .dot {
+        @include position($p: relative);
+        display: inline-block;
+        width: 0.3rem;
+        height: 1.2rem;
+        border-radius: 20%;
+    }
+    .title-text-wrap {
+        @include position($p: relative);
+        @include flex-layout($d: flex, $ai: center, $jc: flex-start, $fd: row, $fw: nowrap);
+        gap: 0.5rem;
+        margin-bottom: 0.8rem;
+
+        h3 {
+            @include font($fw: 600, $fz: 1.6rem, $color: #404c5e);
+        }
+        img {
+            @include position($p: relative);
+        }
+    }
+    ul {
+        padding-top: 0;
+    }
+}
