@@ -12,6 +12,7 @@
 !intranet/sys/
 !intranet/sys/controller/**
 !intranet/sys/model/**
+!intranet/sys/util/**
 
 !intranet/dashboard/
 !intranet/dashboard/css/
