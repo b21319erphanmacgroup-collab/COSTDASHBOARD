@@ -10,8 +10,11 @@
 
 # intranet 구조 열기
 !intranet/sys/
+!intranet/sys/controller/
 !intranet/sys/controller/**
+!intranet/sys/model/
 !intranet/sys/model/**
+!intranet/sys/util/
 !intranet/sys/util/**
 
 !intranet/dashboard/
