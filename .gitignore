@@ -31,4 +31,5 @@ intranet/dashboard/images/**
 !Smarty/templates/
 !Smarty/templates/intranet/
 !Smarty/templates/intranet/common_contents/
+!Smarty/templates/intranet/common_contents/dashboard/
 !Smarty/templates/intranet/common_contents/dashboard/**
