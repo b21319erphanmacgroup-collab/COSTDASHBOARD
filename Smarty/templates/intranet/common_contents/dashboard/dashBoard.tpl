@@ -11,7 +11,7 @@
     
 	<title>DASH BOARD</title>
 	
-	<!-- 스타일2 -->
+	<!-- 스타일 -->
     <link rel="stylesheet" type="text/css" href="../../dashboard/css/style.css" />
 	<link rel="stylesheet" type="text/css" href="../../css/common-mh.css?ver=1.0" />
 	
