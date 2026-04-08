@@ -16,6 +16,10 @@
 !intranet/sys/model/**
 !intranet/sys/util/
 !intranet/sys/util/**
+!intranet/sys/util/dashBoard/
+!intranet/sys/util/dashBoard/**
+!intranet/sys/util/dashBoard/inc/
+!intranet/sys/util/dashBoard/inc/**
 
 !intranet/dashboard/
 !intranet/dashboard/css/
